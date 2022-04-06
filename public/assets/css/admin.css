@@ -1,0 +1,15 @@
+.bg-color-menu {
+  background-color: #172e59;
+}
+
+#menu .nav-link {
+  color: white;
+}
+
+#menu .nav-link:hover {
+  color: #ffaf37;
+}
+
+#menu .active .nav-link {
+  color: #ffaf37;
+}
