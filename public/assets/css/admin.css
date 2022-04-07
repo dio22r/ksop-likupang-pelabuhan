@@ -1,5 +1,9 @@
 .bg-color-menu {
-  background-color: #172e59;
+  background-color: #007BFF;
+}
+
+.text-master-color-red {
+  color: #FB0000;
 }
 
 #menu .nav-link {

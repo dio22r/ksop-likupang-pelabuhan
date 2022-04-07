@@ -11,10 +11,10 @@ class FileKet extends Seeder
 	{
 		$data = [
 			[
-				"keterangan" => "Hasil pemeriksaaan karantina pelabuhan dan 10 last port",
+				"keterangan" => "Surat permohonan Tambat / Labuh",
 			],
 			[
-				"keterangan" => "Pemberitahuan Penunjukan Keagenan Kapal",
+				"keterangan" => "Hasil pemeriksaaan karantina pelabuhan dan 10 last port",
 			],
 			[
 				"keterangan" => "Laporan kedatangan dan keberangkatan kapal (LK3) Pelabuhan Asal",
@@ -41,7 +41,7 @@ class FileKet extends Seeder
 				"keterangan" => "Laporan Rencana Pelaksanaan Bongkar Muat (RKBM) & Lampiran-lampirannya",
 			],
 			[
-				"keterangan" => "Laporan Angkutan Barang (LAB) & Lampiran-lampiranya",
+				"keterangan" => "Laporan Angkutan Barang (LAB) atau Penumpang (LAP)",
 			],
 			[
 				"keterangan" => "Dokumen Lain dari Instansi terkait (untuk muatan tertentu)",

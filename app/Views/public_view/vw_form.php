@@ -202,20 +202,6 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Dock</label>
-              <div class="col-sm-9">
-                <select name="dock_diminta" type="text" class="form-control">
-                  <option value=""> - </option>
-                  <?php foreach ($arrDock as $key => $arrVal) { ?>
-                    <option value="<?= $arrVal["id"] ?>">
-                      <?= $arrVal["nama_dermaga"]; ?>
-                    </option>
-                  <?php } ?>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
               <label class="col-sm-3 col-form-label">PBM dan JPT yang ditunjuk</label>
               <div class="col-sm-9">
                 <input name="pbm" type="text" class="form-control" required>
