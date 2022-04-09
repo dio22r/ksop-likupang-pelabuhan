@@ -14,8 +14,9 @@ class UserHelper
 
   public function verify_captcha($request)
   {
-
-    $secret = '6LeNoWMbAAAAAMBi3aTsSRnp7fjbbBgb37E0F-jR';
+    $config = config('App');
+    // Access settings as object properties
+    $secret = $config->recaptchaSecret;
 
     $credential = array(
       'secret' => $secret,
