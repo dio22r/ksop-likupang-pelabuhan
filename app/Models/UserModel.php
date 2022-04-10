@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Entities\User;
 use CodeIgniter\Model;
 
 class UserModel extends Model
@@ -11,8 +12,8 @@ class UserModel extends Model
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
-	protected $returnType           = 'array';
-	protected $useSoftDeletes       = false;
+	protected $returnType    				= User::class;
+	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
 	protected $allowedFields        = ['nama', 'username', 'password', 'role', 'status'];
 

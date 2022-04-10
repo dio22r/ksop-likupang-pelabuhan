@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use \App\Entities\UserEntity;
 
 class UserHelper
 {
@@ -36,12 +35,11 @@ class UserHelper
     return $status;
   }
 
-  public function insert_data($arrData)
+  public function insert_data($user)
   {
     try {
-      // set key;
 
-      $status = $this->userModel->save($arrData);
+      $status = $this->userModel->save($user);
       $regId = $this->userModel->getInsertID();
 
       if ($status) {
@@ -97,12 +95,13 @@ class UserHelper
     ];
   }
 
-  public function set_login_info($arrUser)
+  public function set_login_info($user)
   {
+    $this->session->set("user", $user);
 
-    $this->session->set("id", $arrUser["id"]);
-    $this->session->set("nama", $arrUser["nama"]);
-    $this->session->set("role", $arrUser["role"]);
+    $this->session->set("id", $user->id);
+    $this->session->set("nama", $user->nama);
+    $this->session->set("role", $user->role);
 
     return TRUE;
   }
@@ -114,6 +113,16 @@ class UserHelper
     } else {
       return $this->session->get('id');
     }
+  }
+
+  public function getUser()
+  {
+    return $this->session->get("user");
+  }
+
+  public function getId()
+  {
+    return $this->session->get("id");
   }
 
   public function get_login_info()
