@@ -34,16 +34,23 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::vw_index');
 $routes->get('/all', 'Home::index');
 
+$routes->get('/login', 'Auth\LoginController::index');
+$routes->post('/login', 'Auth\LoginController::login');
+$routes->get('/logout', 'UserController::logout');
+
+$routes->get('/register', 'Auth\RegisterController::index');
+$routes->post('/register', 'Auth\RegisterController::register');
+
 $routes->get('/tutorial', 'PublicTutorial::index');
 $routes->get('/admin/tutorial', 'Admin\AppsTutorial::index');
 
-$routes->get('/daftar/(:num)', 'Home::show/$1');
+// $routes->get('/daftar/(:num)', 'Home::show/$1');
 
-$routes->get('/daftar', 'Home::view_daftar');
-$routes->post('/daftar', 'Home::create');
+// $routes->get('/daftar', 'Home::view_daftar');
+// $routes->post('/daftar', 'Home::create');
 
-$routes->get('/perbaikan-data/(:segment)', 'Home::vw_edit/$1');
-$routes->post('/perbaikan-data/(:segment)', 'Home::update/$1');
+// $routes->get('/perbaikan-data/(:segment)', 'Home::vw_edit/$1');
+// $routes->post('/perbaikan-data/(:segment)', 'Home::update/$1');
 
 $routes->get('/file-lampiran/(:num)/(:segment)', 'Admin\FileDiscoveryController::file_lampiran_public/$1/$2');
 
@@ -96,6 +103,7 @@ $routes->delete('/admin/pengoprasian-kapal/(:num)', 'Admin\PengoprasianKapalCont
 
 
 // view menu user management
+
 $routes->get('/admin/user-management', 'Admin\UserManagementController::view_index');
 $routes->get('/admin/user-management/form', 'Admin\UserManagementController::view_form');
 $routes->get('/admin/user-management/form/(:num)', 'Admin\UserManagementController::view_form/$1');
@@ -106,6 +114,23 @@ $routes->get('/admin/user-management/(:num)', 'Admin\UserManagementController::s
 $routes->post('/admin/user-management/', 'Admin\UserManagementController::create');
 $routes->put('/admin/user-management/(:num)', 'Admin\UserManagementController::update/$1');
 $routes->delete('/admin/user-management/(:num)', 'Admin\UserManagementController::delete/$1');
+
+
+// member area
+$routes->group('member', function ($routes) {
+	$routes->get('/', 'Member\DashboardController::index');
+
+	$routes->group('tambat-labuh', [], function ($routes) {
+		$routes->get('/', 'Member\TambatLabuhController::index');
+		$routes->get('/list', 'Member\TambatLabuhController::list');
+
+		$routes->get('/create', 'Home::create');
+		$routes->post('/create', 'Home::store');
+
+		$routes->get('/edit/(:segment)', 'Home::vw_edit/$1');
+		$routes->post('/edit/(:segment)', 'Home::update/$1');
+	});
+});
 
 /*
  * --------------------------------------------------------------------
