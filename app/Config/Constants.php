@@ -81,3 +81,5 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('F_PATH_LAMPIRAN', APPPATH . "../writable/uploads/lampiran"); // path for lampiran
 define('APPS_NAME', "e-Sitabuh"); // APPname
+
+define('FULL_APPS_NAME', "e-Sitabuh UPP Likupang"); // APPname
