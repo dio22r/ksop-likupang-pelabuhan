@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
+use App\Entities\User;
 use CodeIgniter\API\ResponseTrait;
 
-class UserController extends BaseController
+class LoginController extends BaseController
 {
 	use ResponseTrait;
 
@@ -19,26 +20,21 @@ class UserController extends BaseController
 
 	public function index()
 	{
-		//
-	}
-
-	public function view_login()
-	{
 		if ($this->userHelper->check_login() !== false) {
-			$redir = base_url("/admin");
-			header("Location: $redir");
-			exit;
+			return redirect()->to("/member");
 		}
 
-		return view("/admin_view/login_view");
+		return view("/member/auth/login", [
+			"actionUrl" => base_url('/login')
+		]);
 	}
 
-	public function api_check_login()
+	public function login()
 	{
 		$status = false;
 		$msg = "Harap centang kode keamanan";
 
-		$check = $this->userHelper->verify_captcha($this->request);
+		// $check = $this->userHelper->verify_captcha($this->request);
 		$check["success"] = true;
 		if ($check["success"]) {
 			$username = $this->request->getPost("username");
@@ -46,8 +42,8 @@ class UserController extends BaseController
 
 			$user = $this->userModel
 				->where(['username' => $username])
-				->where(['status' => 1])
-				->where(['role !=' => 6])
+				->where(['status' => User::USER_STATUS_ACTIVE])
+				->where(['role' => User::USER_ROLE_MEMBER])
 				->first();
 
 			$msg = "Username Tidak Ditemukan";
