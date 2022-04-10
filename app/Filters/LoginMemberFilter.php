@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class LoginFilter implements FilterInterface
+class LoginMemberFilter implements FilterInterface
 {
 	/**
 	 * Do whatever processing this filter needs to do.
@@ -25,16 +25,15 @@ class LoginFilter implements FilterInterface
 	 */
 	public function before(RequestInterface $request, $arguments = null)
 	{
-
-		print_r($arguments);
+		// 
 		$userHelper = new \App\Helpers\UserHelper();
-		if ($userHelper->check_login() === false) {
-			return redirect('/');
+		if ($userHelper->check_login() == false) {
+			return redirect()->to('/login');
 		}
 
 		$user = $userHelper->getUser();
-		if ($user->isMember()) {
-			return redirect()->to('/member');
+		if (!$user->isMember()) {
+			return redirect()->to('/admin');
 		}
 	}
 

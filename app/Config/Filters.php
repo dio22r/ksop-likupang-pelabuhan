@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Filters\LoginFilter;
+use App\Filters\LoginMemberFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -21,6 +22,7 @@ class Filters extends BaseConfig
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
 		'isLogin' => LoginFilter::class,
+		'is-login-member' => LoginMemberFilter::class
 	];
 
 	/**
@@ -61,6 +63,7 @@ class Filters extends BaseConfig
 	 * @var array
 	 */
 	public $filters = [
-		'isLogin' => ['before' => ['admin*']]
+		'isLogin' => ['before' => ['admin*']],
+		'is-login-member' => ['before' => ['member*']]
 	];
 }
