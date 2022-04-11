@@ -120,15 +120,18 @@ $routes->delete('/admin/user-management/(:num)', 'Admin\UserManagementController
 $routes->group('member', function ($routes) {
 	$routes->get('/', 'Member\DashboardController::index');
 
-	$routes->group('tambat-labuh', [], function ($routes) {
+	$routes->group('tambat-labuh', function ($routes) {
 		$routes->get('/', 'Member\TambatLabuhController::index');
-		$routes->get('/list', 'Member\TambatLabuhController::list');
+		$routes->get('list', 'Member\TambatLabuhController::getList');
+		$routes->get('detail/(:num)', 'Member\TambatLabuhController::getDetail/$1');
 
-		$routes->get('/create', 'Home::create');
-		$routes->post('/create', 'Home::store');
+		$routes->get('show', 'Member\TambatLabuhController::show');
 
-		$routes->get('/edit/(:segment)', 'Home::vw_edit/$1');
-		$routes->post('/edit/(:segment)', 'Home::update/$1');
+		$routes->get('create', 'Home::create');
+		$routes->post('create', 'Home::store');
+
+		$routes->get('edit/(:segment)', 'Home::vw_edit/$1');
+		$routes->post('edit/(:segment)', 'Home::update/$1');
 	});
 });
 

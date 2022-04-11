@@ -91,6 +91,19 @@ class PengoprasianKapalHelper
     return $arrData;
   }
 
+  public function addAction($arrData, $baseUrl = '')
+  {
+    foreach ($arrData as $key => $arrVal) {
+      $url = false;
+      if ($arrVal["status"] == 2) {
+        $url = base_url("member/edit/" . $arrVal["id"]);
+      }
+
+      $arrData[$key]["edit_url"] = $url;
+    }
+    return $arrData;
+  }
+
   public function retrieve_data_form($id)
   {
     $arrRkbm = [
