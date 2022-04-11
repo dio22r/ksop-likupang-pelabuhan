@@ -49,7 +49,7 @@ class PengoprasianKapalController extends BaseController
 		}
 
 		$arrView = [
-			"page_title" => "KSOP Bitung - Admin",
+			"page_title" => "Admin",
 			"ctl_id" => $this->menuId,
 
 			"arrJs" => [
@@ -81,7 +81,7 @@ class PengoprasianKapalController extends BaseController
 		}
 
 		$arrView = [
-			"page_title" => "KSOP Bitung - Form Verifikasi",
+			"page_title" => "Form Verifikasi",
 			"ctl_id" => $this->menuId,
 			"arrJs" => [
 				base_url("/assets/js/controller-admin/pengoprasian-kapal/form.js?v=1")
@@ -110,7 +110,7 @@ class PengoprasianKapalController extends BaseController
 			$backUrl = base_url("/admin?activetab=apbn");
 		}
 		$arrView = [
-			"page_title" => "KSOP Bitung - Detail",
+			"page_title" => "Detail",
 			"ctl_id" => $this->menuId,
 			"arrJs" => [
 				base_url("/assets/js/controller-admin/pengoprasian-kapal/detail.js?v=1")
@@ -209,13 +209,13 @@ class PengoprasianKapalController extends BaseController
 
 		$status = false;
 		if ($arrData) {
-			$arrUser = $this->userModel
+			$user = $this->userModel
 				->where("id", $arrData["user_id"])
 				->first();
 
 			$arrData["user_nama"] = " - ";
-			if ($arrUser) {
-				$arrData["user_nama"] = $arrUser["nama"];
+			if ($user) {
+				$arrData["user_nama"] = $user->nama;
 			}
 
 			$qrcode = ["img" => "#", "url" => "#"];
@@ -236,7 +236,6 @@ class PengoprasianKapalController extends BaseController
 
 		return $this->respond($arrRes, 200);
 	}
-
 
 	public function update($id)
 	{

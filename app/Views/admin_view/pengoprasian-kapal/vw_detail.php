@@ -125,10 +125,10 @@
               <th>Tambat yang diminta</th>
               <td><?= $arrData["tambat"]; ?></td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th>Dock yang diminta</th>
               <td><?= $arrData["dock"]; ?></td>
-            </tr>
+            </tr> -->
             <tr>
               <th>PBM dan JPT yang ditunjuk</th>
               <td><?= $arrData["pbm"]; ?></td>
