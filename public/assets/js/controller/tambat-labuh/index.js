@@ -97,7 +97,7 @@ var index = new Vue({
 
       if (conf) {
         axios
-          .delete("/admin/pengoprasian-kapal/" + id)
+          .delete("/member/tambat-labuh/" + id)
           .then((response) => {
             if (response.data.status) {
               alert("Data berhasil dihapus!");
