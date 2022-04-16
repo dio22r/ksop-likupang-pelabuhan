@@ -66,14 +66,14 @@ class UserHelper
   public function change_password($old, $new, $retype)
   {
     $id = $this->session->get('id');
-    $arrData = $this->userModel
+    $user = $this->userModel
       ->where("id", $id)
       ->first();
 
     $status = false;
     $arrErr = [];
     // password olld
-    if (!password_verify($old, $arrData["password"])) {
+    if (!password_verify($old, $user->password)) {
       $arrErr["password_old"] = "Password Lama Tidak Sesuai";
     }
 
@@ -82,8 +82,8 @@ class UserHelper
     }
 
     if (!$arrErr) {
-      $arrData["password"] = $new;
-      $status = $this->userModel->update($id, $arrData);
+      $user->password = $new;
+      $status = $this->userModel->update($id, $user);
       if (!$status) {
         $arrErr = $this->userModel->errors();
       }
