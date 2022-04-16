@@ -124,15 +124,22 @@ $routes->group('member', function ($routes) {
 		$routes->get('/', 'Member\TambatLabuhController::index');
 		$routes->get('list', 'Member\TambatLabuhController::getList');
 		$routes->get('detail/(:num)', 'Member\TambatLabuhController::getDetail/$1');
+		$routes->get('print/(:num)', 'Member\TambatLabuhController::print/$1');
 
-		$routes->get('show', 'Member\TambatLabuhController::show');
+		$routes->get('show/(:num)', 'Member\TambatLabuhController::show/$1');
 
-		$routes->get('create', 'Home::create');
-		$routes->post('create', 'Home::store');
+		$routes->get('create', 'Member\TambatLabuhController::create');
+		$routes->post('create', 'Member\TambatLabuhController::store');
 
-		$routes->get('edit/(:segment)', 'Home::vw_edit/$1');
-		$routes->post('edit/(:segment)', 'Home::update/$1');
+		$routes->get('edit/(:num)', 'Member\TambatLabuhController::edit/$1');
+		$routes->post('edit/(:num)', 'Member\TambatLabuhController::update/$1');
+		$routes->delete('/(:num)', 'Member\TambatLabuhController::delete/$1');
 	});
+
+	$routes->get('file-lampiran/(:num)', 'Admin\FileDiscoveryController::file_lampiran/$1');
+
+	$routes->get('ganti-password', 'Member\UserController::change_password');
+	$routes->post('ganti-password', 'Member\UserController::do_change_password');
 });
 
 /*
