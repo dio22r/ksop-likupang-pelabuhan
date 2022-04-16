@@ -204,7 +204,7 @@
                   </td>
                   <td class="text-center">
                     <?php if ($arrVal["filename"]) { ?>
-                      <a target="_blank" href="<?= base_url("/member/file-lampiran/" . $arrVal["id_file"]) . "/"; ?>" class="btn btn-outline-info btn-sm">
+                      <a target="_blank" href="<?= base_url("/member/file-lampiran/" . $arrVal["id_file"]); ?>" class="btn btn-outline-info btn-sm">
                         Lihat Dokumen
                       </a>
                     <?php } else { ?>
