@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="/admin">
-    <img class="" src="/assets/images/logo-ksop-kelas-ii.png" width="200px" alt="..." />
+  <a class="navbar-brand" href="<?= base_url('/admin') ?>">
+    <img class="" src="<?= base_url('assets/images/ksop-likupang.png') ?>" width="200px" alt="..." />
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

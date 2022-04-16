@@ -10,7 +10,7 @@ class AppsTutorial extends BaseController
 	{
 
 		$arrView = [
-			"page_title" => "KSOP Bitung - Tutorial",
+			"page_title" => "Tutorial",
 			"ctl_id" => "",
 		];
 

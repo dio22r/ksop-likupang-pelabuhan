@@ -42,15 +42,8 @@
 
   <?= $this->renderSection('content') ?>
 
-  <div class="container mt-3 mb-3">
-    <div class="footer text-center">
-      <p class="text-center m-0">
-        <img class="" height="100px" src="/assets/images/siapmenanti-256.png" alt="..." />
-      </p>
 
-      <p class="font-weight-light">Copyright &copy; 2021 &mdash; KSOP Kelas II Bitung </p>
-    </div>
-  </div>
+  <?= $this->include('admin_widget/footer') ?>
 </body>
 
 </html>
