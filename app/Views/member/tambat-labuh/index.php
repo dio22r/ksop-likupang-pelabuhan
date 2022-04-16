@@ -26,11 +26,16 @@
           Daftar Permohonan Tambat Labuh
         </div>
         <div class="card-body">
+
+
           <div class="form-row">
-            <div class="col-sm-9 text-left">
+            <div class="col-md-9 text-left">
+              <a class="btn btn-sm btn-success" href="<?= base_url('member/tambat-labuh/create') ?>">
+                <i class="bi bi-plus-circle"></i> Form Permohonan
+              </a> &nbsp;
               <span>{{String(timenow.hour).padStart(2, "0")}} : {{String(timenow.minutes).padStart(2, "0")}} : {{String(timenow.second).padStart(2, "0")}}</span>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
               <div class="input-group input-group-sm mb-3">
                 <input type="text" id="datepicker" class="datepicker form-control" placeholder="Cari Data" aria-label="Cari Data" aria-describedby="button-addon2" data-date-format="yyyy-mm-dd">
                 <div class="input-group-append">
@@ -158,11 +163,11 @@
               <button v-if="!detail_kapal.deleted_at" type="button" class="btn btn-sm btn-danger" v-on:click="action_delete(detail_kapal.id, $event)">
                 <i class="bi bi-trash"></i> Hapus
               </button>
-              <a v-bind:href="'<?= base_url("/admin/pengoprasian-kapal/form"); ?>/' + detail_kapal.id" class="btn btn-sm btn-primary">
-                <i class="bi bi-check-circle"></i> Form Verifikasi !
-              </a>
             <?php } ?>
-            <a v-bind:href="'<?= base_url("/admin/pengoprasian-kapal/detail"); ?>/' + detail_kapal.id" class="btn btn-sm btn-light">
+            <a v-bind:href="'<?= base_url("/member/tambat-labuh/print"); ?>/' + detail_kapal.id" class="btn btn-sm btn-primary">
+              <i class="bi bi-printer-fill"></i> Print
+            </a>
+            <a v-bind:href="'<?= base_url("/member/tambat-labuh/show"); ?>/' + detail_kapal.id" class="btn btn-sm btn-light">
               <i class="bi bi-eye"></i> Lihat Detail
             </a>
           </div>

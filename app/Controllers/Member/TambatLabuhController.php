@@ -3,9 +3,12 @@
 namespace App\Controllers\Member;
 
 use App\Controllers\BaseController;
+use App\Helpers\HomeHelper;
 use App\Helpers\MenuHelper;
 use App\Helpers\PengoprasianKapalHelper;
 use App\Helpers\UserHelper;
+use App\Models\Eloquent\FileKet;
+use App\Models\Eloquent\OperasiKapal;
 use CodeIgniter\API\ResponseTrait;
 
 class TambatLabuhController extends BaseController
@@ -104,14 +107,97 @@ class TambatLabuhController extends BaseController
 		return $this->respond($arrRes, 200);
 	}
 
-	public function show()
+	public function show(int $id)
 	{
-		// 
+		$operasiKapal = OperasiKapal::with(
+			"Tambat",
+			"Labuh",
+			"JenisKapal",
+			"JenisBarang",
+			"ValidasiKapal"
+		)
+			->find($id);
+		if (!$operasiKapal) {
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+			die;
+		}
+
+		$backUrl = base_url("/member/tambat-labuh");
+
+		$arrFile = FileKet::with(["OperasiKapal" => function ($query) use ($operasiKapal) {
+			return $query->where("operasi_kapal.id", "=", $operasiKapal->id);
+		}])->get();
+
+		$arrView = [
+			"page_title" => "Detail",
+			"operasiKapal" => $operasiKapal,
+			"arrFile" => $arrFile,
+			"validasi" => $operasiKapal->ValidasiKapal,
+			"arrBarang" => $operasiKapal->JenisBarang->where("type", "=", 1),
+			"arrNonBarang" => $operasiKapal->JenisBarang->where("type", "!=", 1),
+			"backUrl" => $backUrl
+		];
+
+		return view("/member/tambat-labuh/detail", $arrView);
+	}
+
+	public function print(int $id)
+	{
+		$arrData = $this->opKapalHelper->retrieve_data_form($id);
+		if (!$arrData) {
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+			die;
+		}
+
+		$qrcode = false;
+		if ($arrData["arrData"]["status"] != 0) {
+			$qrHelper = new \App\Helpers\QrcodeHelper();
+			$qrcode = $qrHelper->retrieve_qrcode(1, ["id" => $id]);
+		}
+
+		return view("/admin_view/pengoprasian-kapal/vw_print_laporan", [
+			"title" => "Data Tambat",
+			"arrData" => $arrData["arrData"],
+			"arrFile" => $arrData["arrFile"],
+			"arrValidasi" => $arrData["arrValidasi"],
+			"arrDataBarang" => $arrData["arrDataBarang"],
+			"qrcode" => $qrcode,
+			"preview" => true
+		]);
 	}
 
 	public function create()
 	{
-		// 
+		$fileKetModel = model("FileKetModel");
+		$dermagaModel = model("DermagaModel");
+		$jenisKapalModel = model("JenisKapalModel");
+		$jenisBarangModel = model("JenisBarangModel");
+
+		$arrFileKet = $fileKetModel->find();
+		$arrLabuh = $dermagaModel->where("type", 1)->where("status", 1)->find();
+		$arrTambat = $dermagaModel->where("type", 2)->find();
+		$arrDock = $dermagaModel->where("type", 2)->where("status", 1)->find();
+		$arrJenisKapal = $jenisKapalModel->find();
+		$arrJenisBarang = $jenisBarangModel->find();
+
+		$arrView = [
+			'page_title' => "Form Pendaftaran",
+			"arrCss" => [base_url("/assets/css/bootstrap-datepicker3.min.css")],
+
+			'arrFileKet' => $arrFileKet,
+			'arrLabuh' => $arrLabuh,
+			'arrTambat' => $arrTambat,
+			'arrDock' => $arrDock,
+			'arrJenisKapal' => $arrJenisKapal,
+			"arrJenisBarang" => $arrJenisBarang,
+
+			"arrConfig" => [
+				"arrJenisBarang" => $arrJenisBarang
+			]
+
+		];
+
+		return view('member/tambat-labuh/form', $arrView);
 	}
 
 	public function store()
@@ -119,17 +205,80 @@ class TambatLabuhController extends BaseController
 		// 
 	}
 
-	public function edit()
+	public function edit(int $id)
 	{
-		// 
+		$opKplModel = model("App\Models\OperasiKapalModel");
+		$opKapalHelper = new \App\Helpers\PengoprasianKapalHelper();
+
+		$arrData = $opKplModel->find($id);
+		if (!$arrData) {
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+			return;
+		}
+
+		$arrData = $opKapalHelper->retrieve_data_form($id);
+
+		$arrView = [
+			"page_title" => "Form Edit",
+			"arrJs" => [
+				base_url("/assets/js/controller/edit.js?v=1")
+			],
+			"arrData" => $arrData["arrData"],
+			"arrFile" => $arrData["arrFile"],
+			"arrValidasi" => $arrData["arrValidasi"],
+			"arrDataBarang" => $arrData["arrDataBarang"]
+		];
+
+		return view('member/tambat-labuh/edit', $arrView);
 	}
 
-	public function update()
+	public function update(int $id)
 	{
-		// 
+		$qrcodeModel = model("QrcodeTokenModel");
+		$opKplModel = model("App\Models\OperasiKapalModel");
+
+		$homeHelper = new HomeHelper();
+
+		$arrData = $opKplModel->find($id);
+		if (!$arrData) {
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+			return;
+		}
+
+		if (!in_array($arrData["status"], [2])) {
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+			return;
+		}
+
+		$files = $this->request->getFiles("file");
+
+		$sizeLimit = 5 * 1024;
+		$arrRules = [];
+		foreach ($files["file"] as $key => $file) {
+			$arrRules["file.$key"] = "max_size[file.$key, $sizeLimit]|mime_in[file.$key,application/pdf,image/jpg,image/jpeg]";
+		}
+
+		$status = $this->validate($arrRules);
+
+		$arrErr = [];
+		if ($status) {
+			$arrRet = $homeHelper->update_data($arrData, $files);
+			$id = $arrRet["id"];
+			$status = $arrRet["status"];
+			$arrErr = $arrRet["arrErr"];
+		} else {
+			$arrErr["file"] = "File tidak boleh lebih dari 5 MB dan harus PDF atau jpg";
+		}
+
+		$arrRes = [
+			"status" => $status,
+			"arrErr" => $arrErr,
+		];
+
+		return $this->respond($arrRes, 200);
 	}
 
-	public function delete()
+	public function delete(int $id)
 	{
 		// 
 	}
