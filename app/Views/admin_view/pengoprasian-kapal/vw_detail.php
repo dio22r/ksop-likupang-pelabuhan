@@ -225,7 +225,12 @@
                 <td class="text-center">
                   <?php if ($arrVal["filename"]) { ?>
                     <?php if ($arrValidasi) { ?>
-                      <?= $arrVal["status"] == 1 ? "Disetujui" : "Ditolak"; ?>
+                      <?php if ($arrVal["status"] == 1) { ?>
+                        Disetujui
+                      <?php } else { ?>
+                        <?= $arrData["status"] == 0 ? "-" : "Ditolak"; ?>
+                      <?php } ?>
+
                     <?php } else { ?>
                       <span> - </span>
                     <?php } ?>

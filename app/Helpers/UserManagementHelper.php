@@ -31,7 +31,7 @@ class UserManagementHelper
       ->where($arrWhere)
       ->first();
 
-    $total = $result["total"];
+    $total = $result->total;
 
     return [
       "data" => $data,

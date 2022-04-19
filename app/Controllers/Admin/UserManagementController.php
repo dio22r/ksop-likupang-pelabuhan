@@ -90,13 +90,12 @@ class UserManagementController extends BaseController
 		if (trim($page) == "" || $page < 0) $page = 1;
 		if ($status == "") $status = 1;
 
-		$arrWhere = ["user.status" => $status];
 		$arrData = $this->userMngHelper->retrieve_json_table(
 			$page,
 			$perpage,
 			$this->request->getGet("search"),
 			"nama",
-			$arrWhere
+			["user.status" => $status, "role <>" => 6]
 		);
 
 

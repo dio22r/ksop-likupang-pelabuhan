@@ -20,7 +20,7 @@ class OperasiKapalModel extends Model
 		"jenis_pelayaran", "eta_date", "eta_time", "etd_date",
 		"etd_time", "pelabuhan_asal", "pelabuhan_tujuan",
 		"labuh_diminta", "tambat_diminta", "dock_diminta", "pbm", "rkbm",
-		"rencana_kegiatan", "status"
+		"rencana_kegiatan", "status", "created_by"
 	];
 
 	// Dates

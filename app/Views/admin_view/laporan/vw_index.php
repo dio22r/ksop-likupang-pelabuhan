@@ -29,9 +29,6 @@
             <li class="nav-item">
               <a class="nav-link " id="harian-tab" data-toggle="tab" href="#harian" role="tab" aria-controls="harian" aria-selected="true">Harian</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link " id="apbn-tab" data-toggle="tab" href="#apbn" role="tab" aria-controls="apbn" aria-selected="true" @click="apbn_on_change()">APBN</a>
-            </li>
           </ul>
         </div>
         <div class="card-body">
