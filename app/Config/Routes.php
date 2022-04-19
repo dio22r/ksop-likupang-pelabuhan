@@ -123,6 +123,21 @@ $routes->group('admin', function ($routes) {
 		$routes->put('(:num)', 'Admin\UserManagementController::update/$1');
 		$routes->delete('(:num)', 'Admin\UserManagementController::delete/$1');
 	});
+
+
+	// view menu member management
+	$routes->group('member-management', function ($routes) {
+		$routes->get('/', 'Admin\MemberManagementController::view_index');
+		$routes->get('form', 'Admin\MemberManagementController::view_form');
+		$routes->get('form/(:num)', 'Admin\MemberManagementController::view_form/$1');
+
+		// API menu user management
+		$routes->get('all', 'Admin\MemberManagementController::index');
+		$routes->get('(:num)', 'Admin\MemberManagementController::show/$1');
+		$routes->post('/', 'Admin\MemberManagementController::create');
+		$routes->put('(:num)', 'Admin\MemberManagementController::update/$1');
+		$routes->delete('(:num)', 'Admin\MemberManagementController::delete/$1');
+	});
 });
 
 
