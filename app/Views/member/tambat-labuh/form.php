@@ -1,16 +1,9 @@
 <?= $this->extend('layout/member') ?>
 
 
-<?= $this->section('style') ?>
+<?= $this->section('css') ?>
 
-
-<script src="<?= base_url("/assets/js/bootstrap-datepicker.min.js") ?>" defer></script>
-<script src="<?= base_url("/assets/js/controller/daftar.js?v=1.1") ?>" defer></script>
-
-
-<?= $this->endSection() ?>
-
-<?= $this->section('content') ?>
+<link rel="stylesheet" href="<?= base_url("/assets/css/bootstrap-datepicker3.min.css") ?>">
 
 <style>
   .hide {
@@ -34,6 +27,11 @@
   }
 </style>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+
 <div id="data-vue">
   <section id="section-1">
     <div class="container">
@@ -43,7 +41,7 @@
       <hr />
       <div class="row justify-content-center">
         <div class="col-md-8">
-          <form id="form-daftar" method="post" enctype="multipart/form-data">
+          <form id="form-daftar" action="<?= base_url("member/tambat-labuh/create") ?>" method="post" enctype="multipart/form-data">
             <div class="form-group row">
               <label class="col-sm-3 col-form-label">Nama Kapal</label>
               <div class="col-sm-9">
@@ -310,7 +308,7 @@
 
             <div class="form-group row">
               <div class="col-sm-9">
-                <a href="<?= base_url("/"); ?>" class="btn btn-light">
+                <a href="<?= base_url("/member/tambat-labuh"); ?>" class="btn btn-light">
                   <i class="bi bi-arrow-90deg-left"></i> Batal
                 </a>
                 <button v-on:click="submit($event)" type="submit" class="btn btn-primary" data-toggle="modal" data-target="#notif">
@@ -419,21 +417,14 @@
 
                 <div class="qrcode-warper">
                   <div class="img-warper-qrcode">
-                    <img width="250px" v-bind:src="qrcodeimg" width="100%" />
-                  </div>
-                  <div class="img-warper-qrcode" style="position: absolute; z-index:10;">
-                    <img width="60px" height="60px" src="<?php echo base_url("/assets/images/ksop.png"); ?>" />
+                    <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_wcnjmdp1.json" background="transparent" speed="1" style="width: 300px; height: 300px;" autoplay></lottie-player>
                   </div>
                 </div>
 
 
                 <p class="text-center">
-                  Permohonan berhasil terkirim. Simpan qrcode diatas untuk keperluan
-                  perbaikan dan bukti persetujuan tambat, atau simpan link berikut
-                  <a v-bind:href="qrcodeurl" target="_blank">Form Update</a>.
-                  <strong>Isi dari QRCode dan Link Tersebut hanya berlaku 7 hari setelah pendaftaran.</strong>
+                  Permohonan berhasil terkirim.
                 </p>
-                <pre>{{qrcodeurl}}</pre>
               </div>
             </div>
           </div>
@@ -444,7 +435,7 @@
             <button v-if="sendError" type="button" class="btn btn-secondary" data-dismiss="modal">
               Coba Lagi
             </button>
-            <a v-else type="button" href="<?= base_url("/"); ?>" class="btn btn-primary">
+            <a v-else type="button" href="<?= base_url("/member/tambat-labuh"); ?>" class="btn btn-primary">
               Oke
             </a>
           </div>
@@ -465,7 +456,7 @@
 </script>
 
 <script src="<?= base_url("/assets/js/bootstrap-datepicker.min.js") ?>" defer></script>
-<script src="<?= base_url("/assets/js/controller/daftar.js?v=1.1") ?>" defer></script>
-
+<script src="<?= base_url("/assets/js/controller/tambat-labuh/form.js") ?>" defer></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 <?= $this->endSection() ?>

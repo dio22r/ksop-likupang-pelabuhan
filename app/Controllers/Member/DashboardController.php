@@ -12,11 +12,11 @@ class DashboardController extends BaseController
 
 	public function __construct()
 	{
-		$this->userHelper = new UserHelper;
+		// $this->userHelper = new UserHelper;
 	}
 
 	public function index()
 	{
-		$user = $this->userHelper->getUser();
+		return redirect()->to('member/tambat-labuh');
 	}
 }

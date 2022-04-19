@@ -48,6 +48,8 @@ class HomeHelper
     $this->opKplModel->transStart();
 
     $arrPost["status"] = 0;
+    $arrPost["created_by"] = (new UserHelper())->getId();
+
     $status = $this->opKplModel->save($arrPost);
     $arrErr = [];
 

@@ -20,8 +20,7 @@
   <section id="content">
 
     <div class="container">
-      <h1 class="display-4 text-center mt-2"> Daftar Kapal </h1>
-      <div class="card">
+      <div class="card mt-5">
         <div class="card-header">
           Daftar Permohonan Tambat Labuh
         </div>
@@ -148,22 +147,14 @@
                 <th>User Validator</th>
                 <td>{{ detail_kapal.user_nama }}</td>
               </tr>
-              <tr v-if="detail_kapal.status == 2">
-                <th>&nbsp;</th>
-                <td>
-                  <img v-bind:src="detail_kapal.qrcodeimg" /> <br />
-                  <code> {{detail_kapal.qrcodeurl}} </code>
-                </td>
-              </tr>
             </table>
           </div>
 
           <div class="modal-footer">
-            <?php if ($isAllowUpdate) { ?>
-              <button v-if="!detail_kapal.deleted_at" type="button" class="btn btn-sm btn-danger" v-on:click="action_delete(detail_kapal.id, $event)">
-                <i class="bi bi-trash"></i> Hapus
-              </button>
-            <?php } ?>
+
+            <a v-if="detail_kapal.status == 2" v-bind:href="'<?= base_url("/member/tambat-labuh/edit"); ?>/' + detail_kapal.id" class="btn btn-sm btn-warning">
+              <i class="bi bi-pencil-square"></i> Form Perbaikan
+            </a>
             <a v-bind:href="'<?= base_url("/member/tambat-labuh/print"); ?>/' + detail_kapal.id" class="btn btn-sm btn-primary">
               <i class="bi bi-printer-fill"></i> Print
             </a>

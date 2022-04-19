@@ -19,6 +19,12 @@
           Data
         </div>
         <div class="card-body">
+          <?php if (isset($arrValidasi["keterangan"])) { ?>
+            <div class="alert alert-warning" role="alert">
+              Perbaiki Data Anda: <br />
+              <div><?= nl2br($arrValidasi["keterangan"]) ?></div>
+            </div>
+          <?php } ?>
           <table class="table table-sm table-bordered">
             <tr>
               <th>Status</th>
@@ -178,7 +184,7 @@
           <div class="alert alert-info">
             File yang di unggah harus berupa <strong>pdf / jpg</strong> dan ukuran file tidak lebih dari <strong>5 MB</strong>
           </div>
-          <form id="form-perbaikan" data-id="<?= $arrData["id"]; ?>" method="post" enctype="multipart/form-data">
+          <form id="form-perbaikan" action="<?= base_url('/member/tambat-labuh/edit/' . $arrData["id"]); ?>" data-id="<?= $arrData["id"]; ?>" method="post" enctype="multipart/form-data">
             <table class="table table-sm table-bordered">
               <tr>
                 <th width="10%" class="text-center"> No. </th>
@@ -271,9 +277,16 @@
 
 </div>
 
+<?= $this->endSection() ?>
+
+
+<?= $this->section('js') ?>
+
 <script>
   var jsConfig = {
     fileList: <?= json_encode($arrFile); ?>,
   };
 </script>
+<script src="<?= base_url("/assets/js/controller/tambat-labuh/edit.js?v=1") ?>" defer></script>
+
 <?= $this->endSection() ?>

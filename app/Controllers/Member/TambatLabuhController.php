@@ -202,7 +202,41 @@ class TambatLabuhController extends BaseController
 
 	public function store()
 	{
-		// 
+
+		$qrcodeHelper = new \App\Helpers\QrcodeHelper();
+		$homeHelper = new HomeHelper();
+
+		$arrPost = $this->request->getPost();
+		$files = $this->request->getFiles("file");
+
+		$sizeLimit = 5 * 1024;
+		$arrRules = [];
+		foreach ($files["file"] as $key => $file) {
+			$arrRules["file.$key"] = "max_size[file.$key, $sizeLimit ]|mime_in[file.$key,application/pdf,image/jpg,image/jpeg]";
+		}
+
+		$status = $this->validate($arrRules);
+
+		$qrcode = ["img" => false, "url" => false];
+		if ($status) {
+			$arrRet = $homeHelper->insert_data($arrPost, $files);
+			// $id = $arrRet["id"];
+			$status = $arrRet["status"];
+			$arrErr = $arrRet["arrErr"];
+
+			// $qrcode = $qrcodeHelper->retrieve_plain_md5_token(4, ["id" => $id]);
+		} else {
+			$arrErr["file"] = "File tidak boleh lebih dari 5 MB dan harus PDF atau jpg";
+		}
+
+		$arrRes = [
+			"status" => $status,
+			"arrErr" => $arrErr,
+			"qrcodeimg" => $qrcode["img"],
+			"qrcodeurl" => $qrcode["url"]
+		];
+
+		return $this->respond($arrRes, 200);
 	}
 
 	public function edit(int $id)

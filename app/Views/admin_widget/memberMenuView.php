@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="<?= base_url('/member') ?>">
+  <a class="navbar-brand" href="<?= base_url('/') ?>">
     <img class="" src="<?= base_url('assets/images/ksop-likupang.png') ?>" width="200px" alt="..." />
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,16 +16,16 @@
         </a>
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-
+          <!-- 
           <a class="dropdown-item" href="<?= base_url("/member"); ?>">
             <i class="bi bi-speedometer2"></i> Dashboard
-          </a>
+          </a> -->
 
           <a class="dropdown-item" href="<?= base_url("/member/tambat-labuh"); ?>">
             <i class="bi bi-clipboard-data"></i> Permohonan
           </a>
-
-          <a class="dropdown-item" href="<?= base_url("/tutorial"); ?>">
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="<?= base_url("/member/tutorial"); ?>">
             <i class="bi bi-flag-fill"></i> Tutorial
           </a>
 
