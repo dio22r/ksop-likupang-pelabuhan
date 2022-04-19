@@ -31,7 +31,7 @@ class UserManagementController extends BaseController
 	{
 
 		$arrView = [
-			"page_title" => "KSOP Bitung - User Management",
+			"page_title" => "User Management",
 			"ctl_id" => $this->menuId,
 
 			"arrJs" => [
@@ -62,7 +62,7 @@ class UserManagementController extends BaseController
 		$arrRole = $userGrpModel->findAll();
 
 		$arrView = [
-			"page_title" => "KSOP Bitung - Home",
+			"page_title" => "User Form",
 			"ctl_id" => $this->menuId,
 
 			"arrJs" => [
