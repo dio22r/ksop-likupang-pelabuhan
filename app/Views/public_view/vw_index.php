@@ -29,12 +29,11 @@
               </div>
             </div>
             <div class="col-sm-4 mb-3">
-              <a href="<?= base_url("/daftar"); ?>" class="btn btn-success">
+              <a href="<?= base_url("/member/tambat-labuh/create"); ?>" class="btn btn-success">
                 <i class="bi bi-journal-plus"></i> Form Daftar
               </a>
             </div>
           </div>
-
 
         </div>
       </div>
