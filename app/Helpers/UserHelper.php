@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\Eloquent\User;
 
 class UserHelper
 {
@@ -134,5 +135,68 @@ class UserHelper
     ];
 
     return $arrData;
+  }
+
+  public function validationRegister()
+  {
+    $validation = \Config\Services::validation();
+
+    $rules = [
+      'nama' => [
+        'label'  => 'Nama',
+        'rules'  => 'required|min_length[3]',
+        'errors' => [
+          'required' => 'Nama wajib diisi',
+          "min_length" => "Nama Minimum 3 karakter"
+        ],
+      ],
+      'username' => [
+        'label'  => 'Username',
+        'rules'  => 'required|is_unique[user.username,id,{id}]|alpha_numeric|min_length[3]',
+        'errors' => [
+          'required' => 'Username wajib diisi',
+          'is_unique' => 'Username tidak tersedia, silahkan ganti dengan username yang lain',
+          'alpha_numeric' => 'Username hanya dapat berupa huruf dan angka',
+          "min_length" => "Nama Minimum 3 karakter"
+        ],
+      ],
+      'password' => [
+        'label'  => 'Password',
+        'rules'  => 'required|min_length[5]|matches[confirm_password]',
+        'errors' => [
+          'required' => "Password Wajib diisi",
+          'min_length' => 'Password Minimum 5 karakter',
+          'matches' => 'Password dan konfirmasi password tidak sama'
+        ],
+      ]
+    ];
+    $validation->setRules($rules);
+
+    return $validation;
+  }
+
+  public function registerMember($request)
+  {
+    $user = new User();
+
+    $user->nama = $request->getPost("nama");
+    $user->username = $request->getPost("username");
+    $user->password = $request->getPost("password");
+    $user->role = User::USER_ROLE_MEMBER;
+    $user->status = User::USER_STATUS_ACTIVE;
+
+    $status = $user->save();
+    $arrErr = [];
+    if (!$status) {
+      $arrErr = ["terjadi kesalahan pada sistem kami."];
+    }
+
+    $arrRes = [
+      "status" => $status,
+      "arrError" => $arrErr,
+      "arrData" => $user
+    ];
+
+    return $arrRes;
   }
 }

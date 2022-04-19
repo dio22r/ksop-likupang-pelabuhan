@@ -18,6 +18,11 @@ class User extends Model
 
   protected $table = "user";
 
+  public function setPasswordAttribute($value)
+  {
+    $this->attributes['password'] = password_hash($value, PASSWORD_DEFAULT);
+  }
+
   public function isMember()
   {
     if ($this->role == User::USER_ROLE_MEMBER) {

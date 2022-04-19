@@ -39,7 +39,7 @@ $routes->post('/login', 'Auth\LoginController::login');
 $routes->get('/logout', 'UserController::logout');
 
 $routes->get('/register', 'Auth\RegisterController::index');
-$routes->post('/register', 'Auth\RegisterController::register');
+$routes->post('/register', 'Auth\RegisterController::doRegister');
 
 $routes->get('/tutorial', 'PublicTutorial::index');
 $routes->get('/admin/tutorial', 'Admin\AppsTutorial::index');
