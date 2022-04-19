@@ -44,7 +44,7 @@ $routes->post('/register', 'Auth\RegisterController::register');
 $routes->get('/tutorial', 'PublicTutorial::index');
 $routes->get('/admin/tutorial', 'Admin\AppsTutorial::index');
 
-// $routes->get('/daftar/(:num)', 'Home::show/$1');
+$routes->get('/daftar/(:num)', 'Home::show/$1');
 
 // $routes->get('/daftar', 'Home::view_daftar');
 // $routes->post('/daftar', 'Home::create');
@@ -62,58 +62,69 @@ $routes->get('/validation-lap-hari/(:segment)', 'ValidationController::qrcodeLap
 $routes->get('/form-login-admin', 'UserController::view_login');
 $routes->post('/form-login-admin', 'UserController::api_check_login');
 
-$routes->get('/admin/logout', 'UserController::logout');
-
-$routes->get('/admin/ganti-password', 'UserController::view_change_password');
-$routes->post('/admin/ganti-password', 'UserController::api_change_password');
-
-// file routes
-$routes->get('/admin/file-lampiran/(:num)', 'Admin\FileDiscoveryController::file_lampiran/$1');
-
-// menu View laporan 
-$routes->get('/admin', 'Admin\LaporanController::vw_index');
-$routes->get('/admin/laporan/print_bulanan', 'Admin\LaporanController::print_bulanan');
-$routes->get('/admin/laporan/print_harian', 'Admin\LaporanController::print_harian');
-$routes->get('/admin/laporan/print_apbn', 'Admin\LaporanController::print_apbn');
-$routes->get('/admin/laporan/stat_harian', 'Admin\LaporanController::vw_stat_harian');
-
-// menu API Laporan
-$routes->get('/admin/laporan/daftar-bulan/(:num)', 'Admin\LaporanController::index_bulan/$1');
-$routes->get('/admin/laporan/statistik/(:num)', 'Admin\LaporanController::api_statistik/$1');
-$routes->get('/admin/laporan/harian/print', 'Admin\LaporanController::print_harian');
-
-// $routes->get('/admin/laporan/apbn-statistik', 'Admin\LaporanController::apbn_statistik');
-$routes->get('/admin/laporan/apbn-data', 'Admin\LaporanController::apbn_data');
 
 
+$routes->group('admin', function ($routes) {
+	$routes->get('logout', 'UserController::logout');
 
-// view menu pengoprasian kapal
-$routes->get('/admin/pengoprasian-kapal/', 'Admin\PengoprasianKapalController::view_index');
-$routes->get('/admin/pengoprasian-kapal/form/(:num)', 'Admin\PengoprasianKapalController::view_form/$1');
-$routes->get('/admin/pengoprasian-kapal/detail/(:num)', 'Admin\PengoprasianKapalController::view_detail/$1');
-$routes->get('/admin/pengoprasian-kapal/print/(:num)', 'Admin\PengoprasianKapalController::view_print/$1');
+	$routes->get('ganti-password', 'UserController::view_change_password');
+	$routes->post('ganti-password', 'UserController::api_change_password');
 
-// API menu pengoprasian kapal
-$routes->get('/admin/pengoprasian-kapal/all', 'Admin\PengoprasianKapalController::index');
-$routes->get('/admin/pengoprasian-kapal/(:num)', 'Admin\PengoprasianKapalController::show/$1');
+	// file routes
+	$routes->get('file-lampiran/(:num)', 'Admin\FileDiscoveryController::file_lampiran/$1');
 
-$routes->post('/admin/pengoprasian-kapal/', 'Admin\PengoprasianKapalController::create');
-$routes->put('/admin/pengoprasian-kapal/(:num)', 'Admin\PengoprasianKapalController::update/$1');
-$routes->delete('/admin/pengoprasian-kapal/(:num)', 'Admin\PengoprasianKapalController::delete/$1');
+	// menu View laporan 
+	$routes->get('/', 'Admin\LaporanController::vw_index');
 
 
-// view menu user management
+	$routes->group('laporan', function ($routes) {
+		$routes->get('print_bulanan', 'Admin\LaporanController::print_bulanan');
+		$routes->get('print_harian', 'Admin\LaporanController::print_harian');
+		$routes->get('print_apbn', 'Admin\LaporanController::print_apbn');
+		$routes->get('stat_harian', 'Admin\LaporanController::vw_stat_harian');
 
-$routes->get('/admin/user-management', 'Admin\UserManagementController::view_index');
-$routes->get('/admin/user-management/form', 'Admin\UserManagementController::view_form');
-$routes->get('/admin/user-management/form/(:num)', 'Admin\UserManagementController::view_form/$1');
+		// menu API Laporan
+		$routes->get('daftar-bulan/(:num)', 'Admin\LaporanController::index_bulan/$1');
+		$routes->get('statistik/(:num)', 'Admin\LaporanController::api_statistik/$1');
+		$routes->get('harian/print', 'Admin\LaporanController::print_harian');
 
-// API menu user management
-$routes->get('/admin/user-management/all', 'Admin\UserManagementController::index');
-$routes->get('/admin/user-management/(:num)', 'Admin\UserManagementController::show/$1');
-$routes->post('/admin/user-management/', 'Admin\UserManagementController::create');
-$routes->put('/admin/user-management/(:num)', 'Admin\UserManagementController::update/$1');
-$routes->delete('/admin/user-management/(:num)', 'Admin\UserManagementController::delete/$1');
+		// $routes->get('/admin/laporan/apbn-statistik', 'Admin\LaporanController::apbn_statistik');
+		$routes->get('apbn-data', 'Admin\LaporanController::apbn_data');
+	});
+
+
+	$routes->group('pengoprasian-kapal', function ($routes) {
+		// view menu pengoprasian kapal
+		$routes->get('/', 'Admin\PengoprasianKapalController::view_index');
+		$routes->get('form/(:num)', 'Admin\PengoprasianKapalController::view_form/$1');
+		$routes->get('detail/(:num)', 'Admin\PengoprasianKapalController::view_detail/$1');
+		$routes->get('print/(:num)', 'Admin\PengoprasianKapalController::view_print/$1');
+
+		// API menu pengoprasian kapal
+		$routes->get('all', 'Admin\PengoprasianKapalController::index');
+		$routes->get('(:num)', 'Admin\PengoprasianKapalController::show/$1');
+
+		$routes->post('/', 'Admin\PengoprasianKapalController::create');
+		$routes->put('(:num)', 'Admin\PengoprasianKapalController::update/$1');
+		$routes->delete('(:num)', 'Admin\PengoprasianKapalController::delete/$1');
+	});
+
+	// view menu user management
+
+	$routes->group('user-management', function ($routes) {
+		$routes->get('/', 'Admin\UserManagementController::view_index');
+		$routes->get('form', 'Admin\UserManagementController::view_form');
+		$routes->get('form/(:num)', 'Admin\UserManagementController::view_form/$1');
+
+		// API menu user management
+		$routes->get('all', 'Admin\UserManagementController::index');
+		$routes->get('(:num)', 'Admin\UserManagementController::show/$1');
+		$routes->post('/', 'Admin\UserManagementController::create');
+		$routes->put('(:num)', 'Admin\UserManagementController::update/$1');
+		$routes->delete('(:num)', 'Admin\UserManagementController::delete/$1');
+	});
+});
+
 
 
 // member area
@@ -140,6 +151,8 @@ $routes->group('member', function ($routes) {
 
 	$routes->get('ganti-password', 'Member\UserController::change_password');
 	$routes->post('ganti-password', 'Member\UserController::do_change_password');
+
+	$routes->get('tutorial', 'Member\AppsTutorial::index');
 });
 
 /*
