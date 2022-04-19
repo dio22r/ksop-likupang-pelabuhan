@@ -199,7 +199,7 @@ class MemberManagementController extends BaseController
 	{
 		$arrData = $this->userModel->find($id);
 		$status = false;
-		if ($arrData && $arrData["role"] == User::USER_ROLE_MEMBER) {
+		if ($arrData && $arrData->role == User::USER_ROLE_MEMBER) {
 			$arrUpdate = ["status" => 0];
 			$status = $this->userModel->update($id, $arrUpdate);
 		}

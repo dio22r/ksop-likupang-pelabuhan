@@ -55,7 +55,7 @@ class UserManagementController extends BaseController
 				return;
 			}
 			$isNew = false;
-			$arrData["password"] = "";
+			$arrData->password = "";
 		}
 
 		$userGrpModel = model("UserGroupModel");
