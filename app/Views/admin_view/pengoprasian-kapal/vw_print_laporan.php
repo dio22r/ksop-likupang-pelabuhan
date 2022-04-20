@@ -268,7 +268,7 @@
             </div>
             <div class="label-warper-qrcode">
               <?= APPS_NAME; ?><br />
-              KSOP KELAS II BITUNG
+              UPP KELAS III LIKUPANG
             </div>
           </div>
         </div>
