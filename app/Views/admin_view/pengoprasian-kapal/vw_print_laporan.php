@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= APPS_NAME; ?> KSOP BITUNG | Detail Validasi </title>
+  <title><?= FULL_APPS_NAME; ?> | Print Validasi </title>
   <!-- Tell the browser to be responsive to screen width -->
 
   <!-- Bootstrap 4 -->
@@ -20,19 +20,9 @@
     <!-- Main content -->
     <section class="laporan">
       <!-- title row -->
-      <div class="row border-bottom">
-        <div class="col-2 text-center p-3">
-          <img src="<?php echo base_url("/assets/images/ksop.png"); ?>" style="height: 90px;" />
-        </div>
-        <div class="col-8">
-          <h4 style="text-align:center; margin:0px;">KEMENTERIAN PERHUBUNGAN</h4>
-          <h4 style="text-align:center; margin:0px;">DIREKTORAT JENDERAL PERHUBUNGAN LAUT</h4>
-          <h4 style="text-align:center; margin:0px;">KANTOR KESYAHBANDARAN DAN OTORITAS PELABUHAN</h4>
-          <h4 style="text-align:center; margin:0px;">KELAS II BITUNG</h4>
-          <p style="text-align:center; font-style:italic;">Jl. Ir. Soekarno No. 4, Pateten Dua, Aertembaga, Kota Bitung - Kode Pos: 95522</p>
-        </div>
-        <!-- /.col -->
-      </div>
+
+      <?= $this->include('admin_widget/printKop') ?>
+
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-12">
