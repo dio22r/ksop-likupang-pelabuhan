@@ -3,12 +3,15 @@
 namespace App\Controllers\Member;
 
 use App\Controllers\BaseController;
+use App\Helpers\Auth;
+use App\Helpers\Can;
 use App\Helpers\HomeHelper;
 use App\Helpers\MenuHelper;
 use App\Helpers\PengoprasianKapalHelper;
 use App\Helpers\UserHelper;
 use App\Models\Eloquent\FileKet;
 use App\Models\Eloquent\OperasiKapal;
+use App\Policies\TambatLabuhPolicies;
 use CodeIgniter\API\ResponseTrait;
 
 class TambatLabuhController extends BaseController
@@ -46,7 +49,7 @@ class TambatLabuhController extends BaseController
 		if (trim($page) == "" || $page < 0) $page = 1;
 		// if ($status == "") $status = 0;
 
-		$arrWhere = ["operasi_kapal.created_by" => $this->user->id]; // create by who
+		$arrWhere = ["operasi_kapal.created_by" => Auth::User()->id]; // create by who
 		$arrData = $this->opKapalHelper->retrieve_json_table(
 			$page,
 			$perpage,
@@ -68,6 +71,8 @@ class TambatLabuhController extends BaseController
 
 	public function getDetail($id)
 	{
+		Can::view(new TambatLabuhPolicies(), OperasiKapal::find($id));
+
 		$qrcodeHelper = new \App\Helpers\QrcodeHelper();
 
 		$arrData = $this->opKapalModel->select("operasi_kapal.*, t1.created_at as tanggal_diproses, keterangan, user_id, t2.nama as nama_jenis_kapal, t1.id as validate")
@@ -122,6 +127,8 @@ class TambatLabuhController extends BaseController
 			die;
 		}
 
+		Can::view(new TambatLabuhPolicies(), $operasiKapal);
+
 		$backUrl = base_url("/member/tambat-labuh");
 
 		$arrFile = FileKet::with(["OperasiKapal" => function ($query) use ($operasiKapal) {
@@ -143,6 +150,8 @@ class TambatLabuhController extends BaseController
 
 	public function print(int $id)
 	{
+		Can::view(new TambatLabuhPolicies(), OperasiKapal::find($id));
+
 		$arrData = $this->opKapalHelper->retrieve_data_form($id);
 		if (!$arrData) {
 			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -168,6 +177,8 @@ class TambatLabuhController extends BaseController
 
 	public function create()
 	{
+		Can::create(new TambatLabuhPolicies());
+
 		$fileKetModel = model("FileKetModel");
 		$dermagaModel = model("DermagaModel");
 		$jenisKapalModel = model("JenisKapalModel");
@@ -202,6 +213,7 @@ class TambatLabuhController extends BaseController
 
 	public function store()
 	{
+		Can::create(new TambatLabuhPolicies());
 
 		$qrcodeHelper = new \App\Helpers\QrcodeHelper();
 		$homeHelper = new HomeHelper();
@@ -241,6 +253,8 @@ class TambatLabuhController extends BaseController
 
 	public function edit(int $id)
 	{
+		Can::edit(new TambatLabuhPolicies(), OperasiKapal::find($id));
+
 		$opKplModel = model("App\Models\OperasiKapalModel");
 		$opKapalHelper = new \App\Helpers\PengoprasianKapalHelper();
 
@@ -268,6 +282,8 @@ class TambatLabuhController extends BaseController
 
 	public function update(int $id)
 	{
+		Can::edit(new TambatLabuhPolicies(), OperasiKapal::find($id));
+
 		$qrcodeModel = model("QrcodeTokenModel");
 		$opKplModel = model("App\Models\OperasiKapalModel");
 
@@ -314,6 +330,6 @@ class TambatLabuhController extends BaseController
 
 	public function delete(int $id)
 	{
-		// 
+		Can::delete(new TambatLabuhPolicies(), OperasiKapal::find($id));
 	}
 }
