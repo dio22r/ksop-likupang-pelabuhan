@@ -74,7 +74,7 @@
                   </div>
 
                   <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="6LeNoWMbAAAAAGNB6hdonIZ6ZaOiJsrSRypjvtYL"></div>
+                    <div class="g-recaptcha" data-sitekey="<?= config('App')->recaptchaPublic ?>"></div>
                   </div>
 
                   <div class="form-group m-0">

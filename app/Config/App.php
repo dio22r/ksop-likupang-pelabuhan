@@ -464,4 +464,5 @@ class App extends BaseConfig
 	public $CSPEnabled = false;
 
 	public $recaptchaSecret = '';
+	public $recaptchaPublic = '';
 }
