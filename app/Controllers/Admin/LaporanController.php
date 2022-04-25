@@ -39,7 +39,7 @@ class LaporanController extends BaseController
 		$activeTab = $this->request->getGet("activetab");
 
 		$arrView = [
-			"page_title" => "KSOP Bitung - Home",
+			"page_title" => "Home",
 			"ctl_id" => $this->menuId,
 
 			"arrJs" => [
