@@ -26,10 +26,7 @@ class RegisterController extends BaseController
 			return redirect()->to("/member");
 		}
 
-		$phraseBuilder = new PhraseBuilder(4, '0123456789');
-		$captchaBuilder = new CaptchaBuilder(null, $phraseBuilder);
-		$captchaBuilder->build();
-		$captchaPhrase = $this->setCaptcha($captchaBuilder->getPhrase());
+		$captchaBuilder = $this->setCaptcha();
 
 		return view("/member/auth/register", [
 			"actionUrl" => base_url('/register'),

@@ -27,11 +27,7 @@ class LoginController extends BaseController
 			return redirect()->to("/member");
 		}
 
-		$phraseBuilder = new PhraseBuilder(4, '0123456789');
-		$captchaBuilder = new CaptchaBuilder(null, $phraseBuilder);
-		$captchaBuilder->build();
-
-		$captchaPhrase = $this->setCaptcha($captchaBuilder->getPhrase());
+		$captchaBuilder = $this->setCaptcha();
 
 		return view("/member/auth/login", [
 			"actionUrl" => base_url('/login'),

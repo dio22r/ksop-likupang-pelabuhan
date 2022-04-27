@@ -33,11 +33,7 @@ class UserController extends BaseController
 			exit;
 		}
 
-		$phraseBuilder = new PhraseBuilder(4, '0123456789');
-		$captchaBuilder = new CaptchaBuilder(null, $phraseBuilder);
-		$captchaBuilder->build();
-
-		$captchaPhrase = $this->setCaptcha($captchaBuilder->getPhrase());
+		$captchaBuilder = $this->setCaptcha();
 
 		return view("/admin_view/login_view", [
 			"actionUrl" => base_url('/form-login-admin'),
