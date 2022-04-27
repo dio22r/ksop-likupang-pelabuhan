@@ -35,7 +35,7 @@
               Halaman Utama
             </div>
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/JBakENzSgdY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/JBakENzSgdY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 
@@ -44,7 +44,7 @@
               Pengajuan Layanan (Form)
             </div>
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/xjNpWcnONxk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/xjNpWcnONxk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 
@@ -54,7 +54,7 @@
             </div>
 
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/N_cyA7k4vGw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/N_cyA7k4vGw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 

@@ -31,7 +31,7 @@
               Menu Laporan
             </div>
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/G2QyBBOB8o0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/G2QyBBOB8o0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 
@@ -41,7 +41,7 @@
             </div>
 
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/cL35hvsggHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/cL35hvsggHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 
@@ -51,7 +51,7 @@
             </div>
 
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/3NAlhKrSFcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/3NAlhKrSFcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 
@@ -61,7 +61,7 @@
             </div>
 
             <div class="card-body">
-              <iframe width="100%" height="315" src="https://www.youtube.com/embed/2asjX0wEWzw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/2asjX0wEWzw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
           </div>
 
