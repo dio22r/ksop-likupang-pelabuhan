@@ -75,7 +75,7 @@ class UserController extends BaseController
 				->with("error", ["Username atau Password Tidak Sesuai."]);
 		}
 
-		if (password_verify($password, $user->password)) {
+		if (!password_verify($password, $user->password)) {
 			return redirect()->back()->withInput()
 				->with("error", ["Username atau Password Tidak Sesuai."]);
 		}
