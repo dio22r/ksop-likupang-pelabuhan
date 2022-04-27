@@ -66,14 +66,12 @@ class UserHelper
 
   public function change_password($old, $new, $retype)
   {
-    $id = $this->session->get('id');
-    $user = $this->userModel
-      ->where("id", $id)
-      ->first();
+    $user = Auth::User();
 
     $status = false;
     $arrErr = [];
     // password olld
+
     if (!password_verify($old, $user->password)) {
       $arrErr["password_old"] = "Password Lama Tidak Sesuai";
     }
@@ -84,7 +82,7 @@ class UserHelper
 
     if (!$arrErr) {
       $user->password = $new;
-      $status = $this->userModel->update($id, $user);
+      $status = $user->save();
       if (!$status) {
         $arrErr = $this->userModel->errors();
       }
@@ -137,6 +135,38 @@ class UserHelper
     return $arrData;
   }
 
+  public function validationLogin()
+  {
+    $validation = \Config\Services::validation();
+
+    $rules = [
+      'username' => [
+        'label'  => 'Username',
+        'rules'  => 'required',
+        'errors' => [
+          'required' => 'Nama wajib diisi'
+        ],
+      ],
+      'password' => [
+        'label'  => 'Password',
+        'rules'  => 'required',
+        'errors' => [
+          'required' => "Password Wajib diisi",
+        ],
+      ],
+      'captcha' => [
+        'label'  => 'Kode Keamanan',
+        'rules'  => 'required',
+        'errors' => [
+          'required' => "Kode Keamanan Wajib diisi",
+        ],
+      ]
+    ];
+    $validation->setRules($rules);
+
+    return $validation;
+  }
+
   public function validationRegister()
   {
     $validation = \Config\Services::validation();
@@ -168,6 +198,13 @@ class UserHelper
           'min_length' => 'Password Minimum 5 karakter',
           'matches' => 'Password dan konfirmasi password tidak sama'
         ],
+      ],
+      'captcha' => [
+        'label'  => 'Kode Keamanan',
+        'rules'  => 'required',
+        'errors' => [
+          'required' => "Kode Keamanan Wajib diisi",
+        ]
       ]
     ];
     $validation->setRules($rules);

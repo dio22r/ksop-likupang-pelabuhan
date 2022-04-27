@@ -60,7 +60,7 @@ $routes->get('/validation-lap-hari/(:segment)', 'ValidationController::qrcodeLap
 // $routes->get('/admin/qrcode/image', 'ValidationController::qrcodeImage');
 
 $routes->get('/form-login-admin', 'UserController::view_login');
-$routes->post('/form-login-admin', 'UserController::api_check_login');
+$routes->post('/form-login-admin', 'UserController::do_login');
 
 
 

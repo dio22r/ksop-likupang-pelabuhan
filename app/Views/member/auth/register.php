@@ -12,9 +12,6 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url("/assets/css/login_view.css"); ?>">
   <link rel="stylesheet" href="<?= base_url("assets/css/admin.css"); ?>">
 
-  <script src="https://www.google.com/recaptcha/api.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12" defer></script>
-
 </head>
 
 <body class="my-login-page">
@@ -83,7 +80,13 @@
                   </div>
 
                   <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="<?= config('App')->recaptchaPublic ?>"></div>
+                    <label for="password">Kode Keamanan
+                    </label>
+                    <input id="captcha" type="text" class="form-control" name="captcha" required>
+                  </div>
+                  <div class="form-group">
+                    <img src="<?= $captcha->inline() ?>" />
+                    <button class="btn btn-light" onClick="window.location.reload();">Ganti Kode</button>
                   </div>
 
                   <div class="form-group m-0">

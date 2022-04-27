@@ -3,11 +3,14 @@
 namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
+use App\Traits\CaptchaTrait;
 use CodeIgniter\API\ResponseTrait;
+use Gregwar\Captcha\CaptchaBuilder;
+use Gregwar\Captcha\PhraseBuilder;
 
 class RegisterController extends BaseController
 {
-	use ResponseTrait;
+	use ResponseTrait, CaptchaTrait;
 
 	public function __construct()
 	{
@@ -23,26 +26,30 @@ class RegisterController extends BaseController
 			return redirect()->to("/member");
 		}
 
+		$phraseBuilder = new PhraseBuilder(4, '0123456789');
+		$captchaBuilder = new CaptchaBuilder(null, $phraseBuilder);
+		$captchaBuilder->build();
+		$captchaPhrase = $this->setCaptcha($captchaBuilder->getPhrase());
+
 		return view("/member/auth/register", [
 			"actionUrl" => base_url('/register'),
-			"errors" => $this->session->getFlashdata('error')
+			"errors" => $this->session->getFlashdata('error'),
+			"captcha" => $captchaBuilder
 		]);
 	}
 
 	public function doRegister()
 	{
-
 		$validation = $this->userHelper->validationRegister();
 		if (!$validation->withRequest($this->request)->run()) {
 			return redirect()->back()->withInput()
 				->with("error", $validation->getErrors());
 		}
 
-		$check = $this->userHelper->verify_captcha($this->request);
-		// $check["success"] = true;
-		if (!$check["success"]) {
+		$captcha = $this->request->getPost("captcha");
+		if (!$this->validateCaptcha($captcha)) {
 			return redirect()->back()->withInput()
-				->with("error", ["Centang tombol validasi terlebih dahulu"]);
+				->with("error", ["Kode keamanan salah."]);
 		}
 
 		$arrRes = $this->userHelper->registerMember($this->request);

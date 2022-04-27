@@ -4,11 +4,14 @@ namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
 use App\Entities\User;
+use App\Traits\CaptchaTrait;
 use CodeIgniter\API\ResponseTrait;
+use Gregwar\Captcha\CaptchaBuilder;
+use Gregwar\Captcha\PhraseBuilder;
 
 class LoginController extends BaseController
 {
-	use ResponseTrait;
+	use ResponseTrait, CaptchaTrait;
 
 	public function __construct()
 	{
@@ -24,45 +27,54 @@ class LoginController extends BaseController
 			return redirect()->to("/member");
 		}
 
+		$phraseBuilder = new PhraseBuilder(4, '0123456789');
+		$captchaBuilder = new CaptchaBuilder(null, $phraseBuilder);
+		$captchaBuilder->build();
+
+		$captchaPhrase = $this->setCaptcha($captchaBuilder->getPhrase());
+
 		return view("/member/auth/login", [
-			"actionUrl" => base_url('/login')
+			"actionUrl" => base_url('/login'),
+			"errors" => $this->session->getFlashdata('error'),
+			"captcha" => $captchaBuilder
 		]);
 	}
 
 	public function login()
 	{
-		$status = false;
-		$msg = "Harap centang kode keamanan";
-
-		// $check = $this->userHelper->verify_captcha($this->request);
-		$check["success"] = true;
-		if ($check["success"]) {
-			$username = $this->request->getPost("username");
-			$password = $this->request->getPost("password");
-
-			$user = $this->userModel
-				->where(['username' => $username])
-				->where(['status' => User::USER_STATUS_ACTIVE])
-				->where(['role' => User::USER_ROLE_MEMBER])
-				->first();
-
-			$msg = "Username Tidak Ditemukan";
-			if ($user) {
-				$msg = "Password Salah";
-				if (password_verify($password, $user->password)) {
-					$this->userHelper->set_login_info($user);
-					$status = true;
-					$msg = "Login Berhasil";
-				}
-			}
+		$validation = $this->userHelper->validationLogin();
+		if (!$validation->withRequest($this->request)->run()) {
+			return redirect()->back()->withInput()
+				->with("error", $validation->getErrors());
 		}
 
-		$arrRes = [
-			"status" => $status,
-			"msg" => $msg
-		];
+		$captcha = $this->request->getPost("captcha");
+		if (!$this->validateCaptcha($captcha)) {
+			return redirect()->back()->withInput()
+				->with("error", ["Kode keamanan salah."]);
+		}
 
-		return $this->respond($arrRes, 200);
+		$username = $this->request->getPost("username");
+		$password = $this->request->getPost("password");
+
+		$user = $this->userModel
+			->where(['username' => $username])
+			->where(['status' => User::USER_STATUS_ACTIVE])
+			->where(['role' => User::USER_ROLE_MEMBER])
+			->first();
+
+		if (!$user) {
+			return redirect()->back()->withInput()
+				->with("error", ["Username atau Password Tidak Sesuai."]);
+		}
+
+		if (password_verify($password, $user->password)) {
+			return redirect()->back()->withInput()
+				->with("error", ["Username atau Password Tidak Sesuai."]);
+		}
+
+		$this->userHelper->set_login_info($user);
+		return redirect()->to("/member");
 	}
 
 	public function view_change_password()

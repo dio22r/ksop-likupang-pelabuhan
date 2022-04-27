@@ -19,9 +19,15 @@ class UserController extends BaseController
 
 	public function change_password()
 	{
-		return view("/member/user/ganti_password", [
+		$arrView = [
+			"ctl_id" => 0,
 			"page_title" => "Ganti Password",
-		]);
+			"errors" => $this->session->getFlashdata('error'),
+			"success" => $this->session->getFlashdata('success'),
+			"actionUrl" => base_url('/member/ganti-password')
+		];
+
+		return view("/member/user/ganti_password", $arrView);
 	}
 
 	public function do_change_password()
@@ -32,12 +38,13 @@ class UserController extends BaseController
 			$this->request->getPost("re_password")
 		);
 
-		$arrRes = [
-			"status" => $arrDet["status"],
-			"arrErr" => $arrDet["arrErr"]
-		];
+		if (!$arrDet["status"]) {
+			return redirect()->back()
+				->with("error", $arrDet["arrErr"]);
+		}
 
-		return $this->respond($arrRes, 200);
+		return redirect()->back()
+			->with("success", ["Password berhasil di ganti"]);
 	}
 
 	public function logout()

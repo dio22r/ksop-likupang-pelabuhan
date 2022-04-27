@@ -12,15 +12,28 @@
             <div class="card-header">Form User</div>
             <div class="card-body">
 
-              <div v-if="alert_show" class="alert alert-danger" role="alert">
-                <ul class="m-0">
-                  <li v-for="msg in alert_msg">
-                    {{msg}}
-                  </li>
-                </ul>
-              </div>
 
-              <form id="form" method="POST" action="<?= base_url("/member/ganti-password"); ?>" v-on:submit='submit($event)'>
+              <?php if ($errors) { ?>
+                <div class="alert alert-danger" role="alert">
+                  <ul class="m-0">
+                    <?php foreach ($errors as $value) { ?>
+                      <li><?= $value ?></li>
+                    <?php } ?>
+                  </ul>
+                </div>
+              <?php } ?>
+
+              <?php if ($success) { ?>
+                <div class="alert alert-success" role="alert">
+                  <ul class="m-0">
+                    <?php foreach ($success as $value) { ?>
+                      <li><?= $value ?></li>
+                    <?php } ?>
+                  </ul>
+                </div>
+              <?php } ?>
+
+              <form id="form" method="POST" action="<?= $actionUrl; ?>">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Password Lama</label>
                   <input type="password" class="form-control" name="password_old" placeholder="***">
@@ -35,11 +48,7 @@
                 </div>
 
                 <div class="form-group">
-                  <div class="g-recaptcha" data-sitekey="6Ldn_T0bAAAAAJ91SqDahIiePHe9a-K_DD4Yvx2j"></div>
-                </div>
-
-                <div class="form-group">
-                  <button type="button" v-on:click='submit($event);' class="btn btn-primary"><i class="bi bi-envelope-fill"></i> Simpan</button>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-envelope-fill"></i> Simpan</button>
                 </div>
 
               </form>
@@ -52,12 +61,4 @@
     </div>
   </section>
 </div>
-<?= $this->endSection() ?>
-
-
-
-<?= $this->section('js') ?>
-
-<script src="<?= base_url("/assets/js/controller/user/ganti_password.js?v=1") ?>" defer></script>
-
 <?= $this->endSection() ?>

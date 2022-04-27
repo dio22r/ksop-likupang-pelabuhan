@@ -12,11 +12,6 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url("/assets/css/login_view.css"); ?>">
   <link rel="stylesheet" href="<?= base_url("assets/css/admin.css"); ?>">
 
-  <script src="https://www.google.com/recaptcha/api.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
-  <script src="<?= base_url("/assets/js/controller/login.js"); ?>" defer></script>
-
 </head>
 
 <body class="my-login-page">
@@ -54,13 +49,18 @@
                 <h4 class="card-title">Login</h4>
                 <p>Selamat Datang Admin <?= FULL_APPS_NAME ?>.</p>
 
-                <div v-if="alert_show" class="alert alert-danger" role="alert">
-                  <ul class="m-0">
-                    {{msg}}
-                  </ul>
-                </div>
 
-                <form method="POST" id="form" class="my-login-validation" v-on:submit="submit($event)">
+                <?php if ($errors) { ?>
+                  <div class="alert alert-danger" role="alert">
+                    <ul class="m-0">
+                      <?php foreach ($errors as $value) { ?>
+                        <li><?= $value ?></li>
+                      <?php } ?>
+                    </ul>
+                  </div>
+                <?php } ?>
+
+                <form method="POST" action="<?= $actionUrl; ?>" id="form" class="my-login-validation">
                   <div class="form-group">
                     <label for="username">Username</label>
                     <input id="username" type="text" class="form-control" name="username" value="" required autofocus>
@@ -74,7 +74,13 @@
                   </div>
 
                   <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="<?= config('App')->recaptchaPublic ?>"></div>
+                    <label for="password">Kode Keamanan
+                    </label>
+                    <input id="captcha" type="text" class="form-control" name="captcha" required>
+                  </div>
+                  <div class="form-group">
+                    <img src="<?= $captcha->inline() ?>" />
+                    <button class="btn btn-light" onClick="window.location.reload();">Ganti Kode</button>
                   </div>
 
                   <div class="form-group m-0">
