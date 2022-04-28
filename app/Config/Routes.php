@@ -41,7 +41,6 @@ $routes->get('/logout', 'UserController::logout');
 $routes->get('/register', 'Auth\RegisterController::index');
 $routes->post('/register', 'Auth\RegisterController::doRegister');
 
-$routes->get('/tutorial', 'PublicTutorial::index');
 $routes->get('/admin/tutorial', 'Admin\AppsTutorial::index');
 
 $routes->get('/daftar/(:num)', 'Home::show/$1');
@@ -167,7 +166,7 @@ $routes->group('member', function ($routes) {
 	$routes->get('ganti-password', 'Member\UserController::change_password');
 	$routes->post('ganti-password', 'Member\UserController::do_change_password');
 
-	$routes->get('tutorial', 'Member\AppsTutorial::index');
+	$routes->get('tutorial', 'PublicTutorial::index');
 });
 
 /*
