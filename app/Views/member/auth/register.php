@@ -99,12 +99,14 @@
             </div>
 
 
-            <?= $this->include('admin_widget/footer') ?>
           </div>
         </div>
       </div>
     </section>
   </div>
+
+
+  <?= $this->include('admin_widget/footer') ?>
 </body>
 
 </html>
