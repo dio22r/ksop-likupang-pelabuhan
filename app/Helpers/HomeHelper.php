@@ -215,7 +215,7 @@ class HomeHelper
 
     $arrErr = [];
     if ($arrInsert) {
-      // $this->opKplModel->update($id, ["status" => 0]);
+      $this->opKplModel->update($id, ["status" => 0]);
       $status = true;
     } else {
       $arrErr = ["file" => "Lampiran Belum Diisi"];
