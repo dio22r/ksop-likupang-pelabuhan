@@ -255,8 +255,13 @@ class TambatLabuhController extends BaseController
 	{
 		Can::edit(new TambatLabuhPolicies(), OperasiKapal::find($id));
 
+		$fileKetModel = model("FileKetModel");
+		$dermagaModel = model("DermagaModel");
+		$jenisKapalModel = model("JenisKapalModel");
+		$jenisBarangModel = model("JenisBarangModel");
+
 		$opKplModel = model("App\Models\OperasiKapalModel");
-		$opKapalHelper = new \App\Helpers\PengoprasianKapalHelper();
+		$opKapalHelper = new PengoprasianKapalHelper();
 
 		$arrData = $opKplModel->find($id);
 		if (!$arrData) {
@@ -266,11 +271,28 @@ class TambatLabuhController extends BaseController
 
 		$arrData = $opKapalHelper->retrieve_data_form($id);
 
+		$arrFileKet = $fileKetModel->find();
+		$arrLabuh = $dermagaModel->where("type", 1)->where("status", 1)->find();
+		$arrTambat = $dermagaModel->where("type", 2)->find();
+		$arrDock = $dermagaModel->where("type", 2)->where("status", 1)->find();
+		$arrJenisKapal = $jenisKapalModel->find();
+		$arrJenisBarang = $jenisBarangModel->find();
+
 		$arrView = [
 			"page_title" => "Form Edit",
-			"arrJs" => [
-				base_url("/assets/js/controller/edit.js?v=1")
+
+			'arrFileKet' => $arrFileKet,
+			'arrLabuh' => $arrLabuh,
+			'arrTambat' => $arrTambat,
+			'arrDock' => $arrDock,
+			'arrJenisKapal' => $arrJenisKapal,
+			"arrJenisBarang" => $arrJenisBarang,
+
+			"arrConfig" => [
+				"arrJenisBarang" => $arrJenisBarang,
+				"arrDataBarang" => $arrData["arrDataBarang"]
 			],
+
 			"arrData" => $arrData["arrData"],
 			"arrFile" => $arrData["arrFile"],
 			"arrValidasi" => $arrData["arrValidasi"],
@@ -284,11 +306,7 @@ class TambatLabuhController extends BaseController
 	{
 		Can::edit(new TambatLabuhPolicies(), OperasiKapal::find($id));
 
-		$qrcodeModel = model("QrcodeTokenModel");
 		$opKplModel = model("App\Models\OperasiKapalModel");
-
-		$homeHelper = new HomeHelper();
-
 		$arrData = $opKplModel->find($id);
 		if (!$arrData) {
 			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -301,17 +319,20 @@ class TambatLabuhController extends BaseController
 		}
 
 		$files = $this->request->getFiles("file");
-
 		$sizeLimit = 5 * 1024;
 		$arrRules = [];
-		foreach ($files["file"] as $key => $file) {
-			$arrRules["file.$key"] = "max_size[file.$key, $sizeLimit]|mime_in[file.$key,application/pdf,image/jpg,image/jpeg]";
+		if ($files) {
+			foreach ($files["file"] as $key => $file) {
+				$arrRules["file.$key"] = "max_size[file.$key, $sizeLimit]|mime_in[file.$key,application/pdf,image/jpg,image/jpeg]";
+			}
 		}
 
+		$homeHelper = new HomeHelper();
+		$arrData = $homeHelper->populateOpKapal($arrData, $this->request);
 		$status = $this->validate($arrRules);
 
 		$arrErr = [];
-		if ($status) {
+		if ($status || !$files) {
 			$arrRet = $homeHelper->update_data($arrData, $files);
 			$id = $arrRet["id"];
 			$status = $arrRet["status"];

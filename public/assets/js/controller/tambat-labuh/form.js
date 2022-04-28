@@ -54,9 +54,13 @@ var login = new Vue({
         formData.append("muat[]", item.muat);
       });
 
+      let config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+
       url = form.action;
       axios
-        .post(url, formData)
+        .post(url, formData, config)
         .then((response) => {
           if (response.data.status) {
             self.sendError = false;

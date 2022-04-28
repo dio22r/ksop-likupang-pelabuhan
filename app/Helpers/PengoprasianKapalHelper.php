@@ -136,7 +136,7 @@ class PengoprasianKapalHelper
       ->first();
 
     $arrDataBarang = $this->dataBrgModel
-      ->select("data_barang.*, t1.uraian, t1.satuan, t1.type")
+      ->select("bongkar, muat, op_kapal_id, t1.id, t1.uraian, t1.satuan, t1.type")
       ->join("jenis_barang t1", "data_barang.jenis_barang_id = t1.id")
       ->where("op_kapal_id", $id)
       ->orderBy("t1.id ASC")

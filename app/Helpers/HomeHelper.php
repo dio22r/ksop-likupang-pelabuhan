@@ -106,12 +106,46 @@ class HomeHelper
     return ["id" => $id, "status" => $status, "arrErr" => $arrErr];
   }
 
+  public function populateOpKapal($arrData, $request)
+  {
+
+    $arrData["nama_kapal"] = $request->getPost("nama_kapal");
+    $arrData["bendera"] = $request->getPost("bendera");
+    $arrData["gt"] = $request->getPost("gt");
+    $arrData["dwt"] = $request->getPost("dwt");
+    $arrData["jenis_kapal"] = $request->getPost("jenis_kapal");
+    $arrData["loa"] = $request->getPost("loa");
+    $arrData["pemilik"] = $request->getPost("pemilik");
+    $arrData["nama_agen"] = $request->getPost("nama_agen");
+    $arrData["nama_nahkoda"] = $request->getPost("nama_nahkoda");
+    $arrData["trayek"] = $request->getPost("trayek");
+    $arrData["jenis_pelayaran"] = $request->getPost("jenis_pelayaran");
+    $arrData["eta_date"] = $request->getPost("eta_date");
+    $arrData["eta_time"] = $request->getPost("eta_time");
+    $arrData["etd_date"] = $request->getPost("etd_date");
+    $arrData["etd_time"] = $request->getPost("etd_time");
+    $arrData["pelabuhan_asal"] = $request->getPost("pelabuhan_asal");
+    $arrData["pelabuhan_tujuan"] = $request->getPost("pelabuhan_tujuan");
+    $arrData["labuh_diminta"] = $request->getPost("labuh_diminta");
+    $arrData["tambat_diminta"] = $request->getPost("tambat_diminta");
+    $arrData["pbm"] = $request->getPost("pbm");
+    $arrData["rkbm"] = $request->getPost("rkbm");
+    $arrData["rencana_kegiatan"] = $request->getPost("rencana_kegiatan");
+
+    return $arrData;
+  }
+
   public function update_data($arrData, $files)
   {
+    $request = \Config\Services::request();
+    $arrPost = $request->getPost();
+
     $this->flampModel->transStart();
 
     $id = $arrData["id"];
     $created_at = $arrData["created_at"];
+
+    $this->opKplModel->update($id, $arrData);
 
     $arrTemp = $this->flampModel->where("id_op_kapal", $id)->findAll();
 
@@ -120,51 +154,76 @@ class HomeHelper
       $arrFileLamp[$arrVal["id_file_ket"]] = $arrVal;
     }
 
-    $arrInsert = false;
-    foreach ($files["file"] as $key => $file) {
-      $isUpdate = false;
-      if (isset($arrFileLamp[$key])) {
-        if ($arrFileLamp[$key]["status"] == 1) {
-          continue;
-        }
-        $isUpdate = true;
+    $arrInsert = true;
+
+    $arrBarang = [];
+    $status = $this->dataBrgModel
+      ->where('op_kapal_id', $id)
+      ->delete();
+
+    if (isset($arrPost["jenis_barang_id"])) {
+      foreach ($arrPost["jenis_barang_id"] as $key => $val) {
+        $arrBarang[] = [
+          "op_kapal_id" => $id,
+          "jenis_barang_id" => $val,
+          "bongkar" => $arrPost["bongkar"][$key],
+          "muat" => $arrPost["muat"][$key]
+        ];
       }
 
-      // check file jika status file sudah 1, tidak boleh diupdate;
-      $filename = $this->fileLampHelper->upload_file($file, $id, $created_at);
+      if ($arrBarang) {
+        $status = $this->dataBrgModel->insertBatch($arrBarang);
+      }
+    }
 
-      if ($filename) {
-        $arrInsert = [
-          "id_op_kapal" => $id,
-          "id_file_ket" => $key,
-          "filename" => $filename
-        ];
+    if ($files) {
 
-        if ($isUpdate) {
-          $arrInsert["id"] = $arrFileLamp[$key]["id"];
+      foreach ($files["file"] as $key => $file) {
+        $isUpdate = false;
+        if (isset($arrFileLamp[$key])) {
+          if ($arrFileLamp[$key]["status"] == 1) {
+            continue;
+          }
+          $isUpdate = true;
         }
 
-        $status = $this->flampModel->save($arrInsert);
-        if ($isUpdate && $status) {
-          $this->fileLampHelper->delete_file(
-            $arrFileLamp[$key]["filename"],
-            $id,
-            $created_at
-          );
+        // check file jika status file sudah 1, tidak boleh diupdate;
+        $filename = $this->fileLampHelper->upload_file($file, $id, $created_at);
+
+        if ($filename) {
+          $arrInsert = [
+            "id_op_kapal" => $id,
+            "id_file_ket" => $key,
+            "filename" => $filename
+          ];
+
+          if ($isUpdate) {
+            $arrInsert["id"] = $arrFileLamp[$key]["id"];
+          }
+
+          $status = $this->flampModel->save($arrInsert);
+          if ($isUpdate && $status) {
+            $this->fileLampHelper->delete_file(
+              $arrFileLamp[$key]["filename"],
+              $id,
+              $created_at
+            );
+          }
         }
       }
     }
 
     $arrErr = [];
     if ($arrInsert) {
-      $this->opKplModel->update($id, ["status" => 0]);
+      // $this->opKplModel->update($id, ["status" => 0]);
+      $status = true;
     } else {
       $arrErr = ["file" => "Lampiran Belum Diisi"];
       $status = false;
     }
 
-
-    if ($status && $this->flampModel->transStatus()) {
+    //  && ($this->flampModel->transStatus() || !$files)
+    if ($status) {
       $this->flampModel->transCommit();
     } else {
       $this->flampModel->transRollback();
