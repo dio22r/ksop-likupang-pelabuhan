@@ -25,7 +25,7 @@ class TambatLabuhPolicies implements Policies
 
     public function edit(OperasiKapal $operasiKapal)
     {
-        return $this->User->id == $operasiKapal->created_by;
+        return $this->User->id == $operasiKapal->created_by && $operasiKapal->status == 2;
     }
 
     public function delete(OperasiKapal $operasiKapal)

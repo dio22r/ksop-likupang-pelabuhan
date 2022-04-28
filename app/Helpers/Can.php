@@ -18,7 +18,7 @@ class Can
 
   public static function view(Policies $policies, $models)
   {
-    if (!$policies->edit($models)) {
+    if (!$policies->view($models)) {
       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
       return;
     }

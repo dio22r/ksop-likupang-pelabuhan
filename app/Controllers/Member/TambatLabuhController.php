@@ -253,7 +253,9 @@ class TambatLabuhController extends BaseController
 
 	public function edit(int $id)
 	{
-		Can::edit(new TambatLabuhPolicies(), OperasiKapal::find($id));
+		if (!(new TambatLabuhPolicies())->edit(OperasiKapal::find($id))) {
+			return redirect()->to("member/tambat-labuh/show/" . $id);
+		}
 
 		$fileKetModel = model("FileKetModel");
 		$dermagaModel = model("DermagaModel");
