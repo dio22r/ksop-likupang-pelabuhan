@@ -92,13 +92,13 @@
               <li class="mb-2">
                 <a href="#">
                   <i class="bi bi-telephone-fill"></i>&nbsp;
-                  (031) 7524149
+                  (031) 222222
                 </a>
               </li>
               <li class="mb-2">
                 <a href="#">
-                  <i class="bi bi-card-text"></i>&nbsp;
-                  (031) 7525486
+                  <i class="bi bi-envelope"></i>&nbsp;
+                  email@gmail.com
                 </a>
               </li>
               <li class="mb-2">
