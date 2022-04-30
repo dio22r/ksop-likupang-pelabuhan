@@ -92,19 +92,19 @@
               <li class="mb-2">
                 <a href="#">
                   <i class="bi bi-telephone-fill"></i>&nbsp;
-                  (031) 222222
+                  No. Telp: 081143801221
                 </a>
               </li>
               <li class="mb-2">
                 <a href="#">
                   <i class="bi bi-envelope"></i>&nbsp;
-                  email@gmail.com
+                  Email: upplikupang@gmail.com
                 </a>
               </li>
               <li class="mb-2">
-                <a target="_blank" href="https://api.whatsapp.com/send?phone=">
+                <a target="_blank" href="https://api.whatsapp.com/send?phone=081340599949">
                   <i class="bi bi-whatsapp"></i>&nbsp;
-                  e-Sitabuh
+                  Kontak Aduan: 081340599949
                 </a>
               </li>
             </ul>
