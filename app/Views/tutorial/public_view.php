@@ -18,12 +18,12 @@
         <div class="col-lg-7 col-md-10 ">
 
           <p class="text-center">
-            <img class="mb-2 mb-md-4" height="200px" src="/assets/images/siapmenanti-256.png" alt="..." />
+            <img class="mb-2 mb-md-4" height="50px" src="<?= base_url('/assets/images/Kerja-dengan-hati.png') ?>" alt="..." />
           </p>
-
+          <!-- 
           <div class="mb-3 text-center">
-            <a class="btn btn-primary" target="_blank" href="<?= base_url('/assets/docs/user-manual-siapmenanti-pemohon.pdf') ?>" role="button">E-Book: User Guide SIAPMENANTI</a>
-          </div>
+            <a class="btn btn-primary" target="_blank" href="#" role="button">E-Book: User Guide SIAPMENANTI</a>
+          </div> -->
 
           <style>
             iframe .ytp-chrome-top.ytp-show-cards-title {
