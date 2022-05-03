@@ -248,101 +248,103 @@
             <button type="button" class="btn btn-sm btn-outline-warning mb-3" data-toggle="modal" data-target="#jenis-barang">
               <i class="bi bi-plus-lg"></i> Tambah Data Barang
             </button>
-            <table class="table table-sm table-bordered">
-              <tr>
-                <th width="10%">No</th>
-                <th width="40%">Uraian</th>
-                <th width="20%" class="text-center" colspan="2">Bongkar</th>
-                <th width="20%" class="text-center" colspan="2">Muat</th>
-                <th width="10%" class="text-center">&times</th>
-              </tr>
-              <tr v-if="arrDataBarang.length < 1 && arrDataNotBarang.length < 1">
-                <td colspan="7" class="text-center">Belum Ada Data</td>
-              </tr>
-              <tr v-else v-for="(item, index) in arrDataBarang">
-                <td width="10%">{{index + 1}}</td>
-                <td width="40%">{{item.uraian}}</th>
-                <td width="15%" class="text-center">{{ parseFloat(item.bongkar) }} </td>
-                <td width="5%" class="text-center">{{item.satuan}} </td>
-                <td width="15%" class="text-center">{{ parseFloat(item.muat) }} </td>
-                <td width="5%" class="text-center">{{item.satuan}} </td>
-                <td width="10%" class="text-center">
-                  <button @click="delete_item(item.id)" type="button" class="btn btn-sm btn-outline-danger">
-                    &times
-                  </button>
-                </td>
-              </tr>
-              <tr v-if="jumlahBongkar > 0 || jumlahMuat > 0">
-                <th colspan="2" class="text-center">Jumlah</th>
-                <th width="15%" class="text-center"> {{jumlahBongkar}}</th>
-                <th width="5%" class="text-center">T/M3</th>
-                <th width="15%" class="text-center"> {{jumlahMuat}}</th>
-                <th width="5%" class="text-center">T/M3</th>
-                <th width="10%"></th>
-              </tr>
-              <tr v-for="(item, index) in arrDataNotBarang">
-                <td width="10%">{{index + 1}}</td>
-                <td width="40%">{{item.uraian}}</th>
-                <td width="15%" class="text-center">{{ parseInt(item.bongkar) }} </td>
-                <td width="5%" class="text-center">{{item.satuan}} </td>
-                <td width="15%" class="text-center">{{ parseInt(item.muat)}} </td>
-                <td width="5%" class="text-center">{{item.satuan}} </td>
-                <td width="10%" class="text-center">
-                  <button @click="delete_item(item.id)" type="button" class="btn btn-sm btn-outline-danger">
-                    &times
-                  </button>
-                </td>
-              </tr>
-            </table>
-
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered">
+                <tr>
+                  <th width="10%">No</th>
+                  <th width="40%">Uraian</th>
+                  <th width="20%" class="text-center" colspan="2">Bongkar</th>
+                  <th width="20%" class="text-center" colspan="2">Muat</th>
+                  <th width="10%" class="text-center">&times</th>
+                </tr>
+                <tr v-if="arrDataBarang.length < 1 && arrDataNotBarang.length < 1">
+                  <td colspan="7" class="text-center">Belum Ada Data</td>
+                </tr>
+                <tr v-else v-for="(item, index) in arrDataBarang">
+                  <td width="10%">{{index + 1}}</td>
+                  <td width="40%">{{item.uraian}}</th>
+                  <td width="15%" class="text-center">{{ parseFloat(item.bongkar) }} </td>
+                  <td width="5%" class="text-center">{{item.satuan}} </td>
+                  <td width="15%" class="text-center">{{ parseFloat(item.muat) }} </td>
+                  <td width="5%" class="text-center">{{item.satuan}} </td>
+                  <td width="10%" class="text-center">
+                    <button @click="delete_item(item.id)" type="button" class="btn btn-sm btn-outline-danger">
+                      &times
+                    </button>
+                  </td>
+                </tr>
+                <tr v-if="jumlahBongkar > 0 || jumlahMuat > 0">
+                  <th colspan="2" class="text-center">Jumlah</th>
+                  <th width="15%" class="text-center"> {{jumlahBongkar}}</th>
+                  <th width="5%" class="text-center">T/M3</th>
+                  <th width="15%" class="text-center"> {{jumlahMuat}}</th>
+                  <th width="5%" class="text-center">T/M3</th>
+                  <th width="10%"></th>
+                </tr>
+                <tr v-for="(item, index) in arrDataNotBarang">
+                  <td width="10%">{{index + 1}}</td>
+                  <td width="40%">{{item.uraian}}</th>
+                  <td width="15%" class="text-center">{{ parseInt(item.bongkar) }} </td>
+                  <td width="5%" class="text-center">{{item.satuan}} </td>
+                  <td width="15%" class="text-center">{{ parseInt(item.muat)}} </td>
+                  <td width="5%" class="text-center">{{item.satuan}} </td>
+                  <td width="10%" class="text-center">
+                    <button @click="delete_item(item.id)" type="button" class="btn btn-sm btn-outline-danger">
+                      &times
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
             <h5> Upload Lampiran </h5>
             <div class="alert alert-info">
               File yang di unggah harus berupa <strong>pdf / jpg</strong> dan ukuran file tidak lebih dari <strong>5 MB</strong>
             </div>
 
-            <table class="table table-sm table-bordered">
-              <tr>
-                <th width="10%" class="text-center"> No. </th>
-                <th width="60%">Nama Dokumen</th>
-                <th width="15%">Dokumen</th>
-                <th width="15%">Ubah File</th>
-              </tr>
-              <?php foreach ($arrFile as $key => $arrVal) { ?>
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered">
                 <tr>
-                  <td class="text-center"><?= $key + 1 ?></td>
-                  <td>
-                    <?= $arrVal["keterangan"]; ?>
-
-                    <?php if ($arrVal["filename"]) { ?>
-                      <?php if ($arrData["status"] == "0" && $arrVal["status"] != 1) { ?>
-                        <i class="bi bi-patch-exclamation-fill text-warning"></i>
-                      <?php } elseif ($arrVal["status"] === "0") { ?>
-                        <i class="bi bi-patch-exclamation-fill text-danger"></i>
-                      <?php } elseif ($arrVal["status"] == 1) { ?>
-                        <i class="bi bi-patch-check-fill text-success"></i>
-                      <?php }  ?>
-                    <?php } ?>
-                  </td>
-                  <td class="text-center">
-                    <?php if ($arrVal["filename"]) { ?>
-                      <a target="_blank" href="<?= base_url("/member/file-lampiran/" . $arrVal["id_file"]); ?>" class="btn btn-outline-info btn-sm">
-                        Lihat Dokumen
-                      </a>
-                    <?php } else { ?>
-                      <span> - </span>
-                    <?php } ?>
-                  </td>
-                  <td class="text-center">
-                    <?php if ($arrData["status"] == 2 && $arrVal["status"] != 1) { ?>
-                      <input type="file" name="file[<?= $arrVal["id"]; ?>]" id="file-<?= $arrVal["id"]; ?>" accept="application/pdf, image/jpg, image/jpeg">
-                    <?php } else { ?>
-                      <span> - </span>
-                    <?php } ?>
-                  </td>
+                  <th width="10%" class="text-center"> No. </th>
+                  <th width="60%">Nama Dokumen</th>
+                  <th width="15%">Dokumen</th>
+                  <th width="15%">Ubah File</th>
                 </tr>
-              <?php } ?>
-            </table>
+                <?php foreach ($arrFile as $key => $arrVal) { ?>
+                  <tr>
+                    <td class="text-center"><?= $key + 1 ?></td>
+                    <td>
+                      <?= $arrVal["keterangan"]; ?>
 
+                      <?php if ($arrVal["filename"]) { ?>
+                        <?php if ($arrData["status"] == "0" && $arrVal["status"] != 1) { ?>
+                          <i class="bi bi-patch-exclamation-fill text-warning"></i>
+                        <?php } elseif ($arrVal["status"] === "0") { ?>
+                          <i class="bi bi-patch-exclamation-fill text-danger"></i>
+                        <?php } elseif ($arrVal["status"] == 1) { ?>
+                          <i class="bi bi-patch-check-fill text-success"></i>
+                        <?php }  ?>
+                      <?php } ?>
+                    </td>
+                    <td class="text-center">
+                      <?php if ($arrVal["filename"]) { ?>
+                        <a target="_blank" href="<?= base_url("/member/file-lampiran/" . $arrVal["id_file"]); ?>" class="btn btn-outline-info btn-sm">
+                          Lihat Dokumen
+                        </a>
+                      <?php } else { ?>
+                        <span> - </span>
+                      <?php } ?>
+                    </td>
+                    <td class="text-center">
+                      <?php if ($arrData["status"] == 2 && $arrVal["status"] != 1) { ?>
+                        <input type="file" name="file[<?= $arrVal["id"]; ?>]" id="file-<?= $arrVal["id"]; ?>" accept="application/pdf, image/jpg, image/jpeg">
+                      <?php } else { ?>
+                        <span> - </span>
+                      <?php } ?>
+                    </td>
+                  </tr>
+                <?php } ?>
+              </table>
+            </div>
             <div class="text-right">
               <a href="<?= base_url("/member/tambat-labuh"); ?>" class="btn btn-light btn-sm">
                 <i class="bi bi-arrow-90deg-left"></i> Kembali

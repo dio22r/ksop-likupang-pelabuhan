@@ -22,7 +22,7 @@
           </p>
           <!-- 
           <div class="mb-3 text-center">
-            <a class="btn btn-primary" target="_blank" href="#" role="button">E-Book: User Guide SIAPMENANTI</a>
+            <a class="btn btn-primary" target="_blank" href="#" role="button">E-Book: User Guide E-Sitabuh</a>
           </div> -->
 
           <style>

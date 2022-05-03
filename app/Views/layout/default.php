@@ -39,13 +39,13 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-6 text-md-left text-center">
+                <div class="col-md-6 col-8 text-left">
                     <a class="navbar-brand" href="/">
                         <img class="" src="<?= base_url('assets/images/ksop-likupang.png') ?>" alt="..." />
                     </a>
                 </div>
                 <!-- Masthead Avatar Image-->
-                <div class="col-md-6 text-md-right text-center">
+                <div class="col-md-6 col-4 text-right">
                     <!-- <img class="mb-2 mb-md-4" height="70px" src="/assets/images/siapmenanti.png" alt="..." /> -->
                     <img class="" src="<?= base_url('assets/images/Kerja-dengan-hati.png') ?>" alt="..." />
                 </div>

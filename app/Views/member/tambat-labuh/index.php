@@ -44,45 +44,47 @@
             </div>
           </div>
 
-          <table class="table table-bordered table-hover table-sm">
-            <tr>
-              <th width="5%">No.</th>
-              <th width="15%">Tgl. Daftar</th>
-              <th width="23%">Keagenan</th>
-              <th width="30%">Nama Kapal</th>
-              <th width="10%">Bendera</th>
-              <th width="10%">Status</th>
-            </tr>
-            <tr v-if="items.length < 1">
-              <th colspan="6" class="text-center">Belum ada data</th>
-            </tr>
-            <tr v-else v-for="(item, index) in items" data-toggle="modal" data-target="#detail-modal" v-on:click="view_detail(item.id, $event)">
-              <td>{{index + count_start}}</td>
-              <td>{{item.created_at}}</td>
-              <td>{{item.nama_agen}}</td>
-              <td>{{item.nama_kapal}}</td>
-              <td>{{item.bendera}}</td>
-              <td>
-                <span v-if="item.status == 1" class="badge badge-success">Disetujui</span>
-                <span v-if="item.status == 0 && item.validate" class="badge badge-info">Diperbaiki</span>
-                <span v-if="item.status == 0 && !item.validate" class="badge badge-secondary">Menunggu</span>
-                <span v-if="item.status == -1" class="badge badge-danger">Ditolak</span>
-                <span v-if="item.status == 2" class="badge badge-warning">Perbaikan</span>
-              </td>
-            </tr>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-sm">
+              <tr>
+                <th width="5%">No.</th>
+                <th width="15%">Tgl. Daftar</th>
+                <th width="23%">Keagenan</th>
+                <th width="30%">Nama Kapal</th>
+                <th width="10%">Bendera</th>
+                <th width="10%">Status</th>
+              </tr>
+              <tr v-if="items.length < 1">
+                <th colspan="6" class="text-center">Belum ada data</th>
+              </tr>
+              <tr v-else v-for="(item, index) in items" data-toggle="modal" data-target="#detail-modal" v-on:click="view_detail(item.id, $event)">
+                <td>{{index + count_start}}</td>
+                <td>{{item.created_at}}</td>
+                <td>{{item.nama_agen}}</td>
+                <td>{{item.nama_kapal}}</td>
+                <td>{{item.bendera}}</td>
+                <td>
+                  <span v-if="item.status == 1" class="badge badge-success">Disetujui</span>
+                  <span v-if="item.status == 0 && item.validate" class="badge badge-info">Diperbaiki</span>
+                  <span v-if="item.status == 0 && !item.validate" class="badge badge-secondary">Menunggu</span>
+                  <span v-if="item.status == -1" class="badge badge-danger">Ditolak</span>
+                  <span v-if="item.status == 2" class="badge badge-warning">Perbaikan</span>
+                </td>
+              </tr>
+            </table>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item" v-bind:class="[ current_page == 1 ? 'disabled' :'' ]"><a class="page-link prev" v-on:click="pagination(-1, $event)" href="#">Prev.</a></li>
-              <li class="page-item"><a class="page-link" v-on:click="pagination(-2, $event)" v-bind:class="[ current_page - 2 <= 0 ? 'hide' : '' ]" href="#">{{ current_page - 2 }}</a></li>
-              <li class="page-item"><a class="page-link" v-on:click="pagination(-1, $event)" v-bind:class="[ current_page - 1 <= 0 ? 'hide' : '' ]" href="#">{{ current_page - 1 }}</a></li>
-              <li class="page-item active"><a class="page-link" href="#">{{ current_page }}</a></li>
-              <li class="page-item"><a class="page-link" v-on:click="pagination(1, $event)" v-bind:class="[ current_page + 1 > total_page ? 'hide' : '' ]" href="#">{{ current_page + 1 }}</a></li>
-              <li class="page-item"><a class="page-link" v-on:click="pagination(2, $event)" v-bind:class="[ current_page + 2 > total_page ? 'hide' : '' ]" href="#">{{ current_page + 2 }}</a></li>
-              <li class="page-item" v-bind:class="[ current_page == total_page ? 'disabled' :'' ]"><a class="page-link next" v-on:click="pagination(1, $event)" href="#">Next</a></li>
-            </ul>
-          </nav>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" v-bind:class="[ current_page == 1 ? 'disabled' :'' ]"><a class="page-link prev" v-on:click="pagination(-1, $event)" href="#">Prev.</a></li>
+                <li class="page-item"><a class="page-link" v-on:click="pagination(-2, $event)" v-bind:class="[ current_page - 2 <= 0 ? 'hide' : '' ]" href="#">{{ current_page - 2 }}</a></li>
+                <li class="page-item"><a class="page-link" v-on:click="pagination(-1, $event)" v-bind:class="[ current_page - 1 <= 0 ? 'hide' : '' ]" href="#">{{ current_page - 1 }}</a></li>
+                <li class="page-item active"><a class="page-link" href="#">{{ current_page }}</a></li>
+                <li class="page-item"><a class="page-link" v-on:click="pagination(1, $event)" v-bind:class="[ current_page + 1 > total_page ? 'hide' : '' ]" href="#">{{ current_page + 1 }}</a></li>
+                <li class="page-item"><a class="page-link" v-on:click="pagination(2, $event)" v-bind:class="[ current_page + 2 > total_page ? 'hide' : '' ]" href="#">{{ current_page + 2 }}</a></li>
+                <li class="page-item" v-bind:class="[ current_page == total_page ? 'disabled' :'' ]"><a class="page-link next" v-on:click="pagination(1, $event)" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
