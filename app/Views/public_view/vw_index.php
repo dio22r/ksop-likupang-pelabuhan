@@ -10,9 +10,9 @@
 <div id="data-vue">
   <section id="section-1">
     <div class="container">
-      <h2 class="text-center text-uppercase mt-5 mb-0">
+      <h4 class="text-center text-uppercase mt-5 mb-0">
         Daftar Pelayanan Kapal
-      </h2>
+      </h4>
       <hr />
       <div class="row justify-content-center">
         <div class="col-lg-7 col-md-10 ">
@@ -37,14 +37,14 @@
 
         </div>
       </div>
-
+      <!-- 
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div>
             <canvas id="myChart" width="100%" height="30px"></canvas>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <table class="table table-bordered table-hover table-sm">
         <tr>
