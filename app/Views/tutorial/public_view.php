@@ -1,4 +1,4 @@
-<?= $this->extend('layout/default') ?>
+<?= $this->extend('layout/member') ?>
 
 <?= $this->section('content') ?>
 
